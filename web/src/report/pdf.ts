@@ -45,7 +45,20 @@ function reportId(): string {
   return `CT-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${[...a].map((b) => b.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
 }
 
-export async function exportPdf(snapshot: string | null): Promise<void> {
+/** Wait until the estimate on screen belongs to the values in the record (a new patient may still be scoring). */
+async function settled(): Promise<void> {
+  for (let k = 0; k < 150; k++) {
+    const s = useRisk.getState();
+    if (!s.loading && s.base && s.baseInputs === s.inputs) return;
+    await new Promise((r) => setTimeout(r, 100));
+  }
+  throw new Error("the estimate is still updating; try again in a moment");
+}
+
+export async function exportPdf(takeSnapshot: () => string | null): Promise<void> {
+  await settled();   // never mix one patient's values with another patient's estimates
+  await new Promise((r) => setTimeout(r, 700));   // let the 3D colors finish their transition
+  const snapshot = takeSnapshot();
   const st = useRisk.getState();
   // Exact model output only: a visit-comparison blend is not an estimate; what-if results are labeled.
   const res: PredictResponse | null = st.compare !== null ? st.base : st.result;

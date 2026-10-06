@@ -1,35 +1,79 @@
-# CoronaryTwin
+<h1 align="center">CoronaryTwin</h1>
 
-**Multimodal AI Hackathon 2026, Track A: Cardiovascular Risk Visualization & Prediction**
+<p align="center">
+  <b>A living 3D coronary "twin" that shows <i>where</i> risk sits, <i>how sure</i> the model is, <i>why</i> it thinks so, and <i>what would change it</i>.</b><br>
+  Multimodal AI Hackathon 2026 · Track A: Cardiovascular Risk Visualization &amp; Prediction
+</p>
 
-> A living 3D coronary "twin" that shows **where** risk sits, **how sure** the model is,
-> **why** it thinks so, and **what would change it**.
+<p align="center">
+  <img alt="Python 3.13" src="https://img.shields.io/badge/Python-3.13-3776AB?logo=python&amp;logoColor=white">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-backend-009688?logo=fastapi&amp;logoColor=white">
+  <img alt="scikit-learn" src="https://img.shields.io/badge/scikit--learn-models-F7931E?logo=scikitlearn&amp;logoColor=white">
+  <img alt="React 19" src="https://img.shields.io/badge/React-19-61DAFB?logo=react&amp;logoColor=black">
+  <img alt="three.js" src="https://img.shields.io/badge/three.js-3D-000000?logo=threedotjs&amp;logoColor=white">
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-ready-2496ED?logo=docker&amp;logoColor=white">
+</p>
+
+<p align="center">
+  <img src="docs/figures/readme/hero.png" alt="CoronaryTwin report: KPI strip, overall estimate 96% Likely, and the 3D heart with each coronary artery colored by its own probability; the side and right arteries are drawn dashed because they are uncertain" width="100%">
+</p>
 
 > ⚠️ **For decision support and educational purposes only. Not a substitute for formal
 > diagnostic imaging or clinical judgment.**
 
-CoronaryTwin predicts overall coronary artery disease (CAD) and stenosis in the LAD, LCX
-and RCA from routine clinical data, then shows each artery as a separate 3D object
-colored by its calibrated probability, with uncertainty, SHAP explanations and what-if
-sensitivity analysis.
+CoronaryTwin predicts overall coronary artery disease (CAD) and stenosis in the LAD, LCX and RCA from 51 routine clinical
+measurements, then shows each artery as its own 3D object, colored by its calibrated probability, with uncertainty, SHAP
+explanations and what-if sensitivity analysis. Try it in one click with **▶ Try demo** (five sample patients), or drop in
+lab, ECG and echo reports and let it read the values for you.
 
-## Status
+## Results at a glance
 
-| # | Module | Status |
+Every number comes from patients the model never saw (nested 5×5 cross-validation, 303 patients). Details: [model card](docs/MODEL_CARD.md), [experiments](docs/experiments.md).
+
+| Estimate | Model | ROC-AUC (95% CI) |
 |---|---|---|
-| 00 | Overview, repo skeleton, shared contracts, mock API | ✅ Done |
-| 01 | Data & preprocessing, leakage guard, `features.yaml` | ✅ Done ([data report](docs/data_report.md)) |
-| 02 | Four calibrated models, nested CV, conformal | ✅ Done ([model card](docs/MODEL_CARD.md)) |
-| 03 | SHAP, grouping, what-if | ✅ Done ([report](docs/explainability_report.md)) |
-| 04 | FastAPI with real models | ✅ Done |
-| 05 | 3D heart and vessels | ✅ Done ([assets](docs/ASSETS.md)) |
-| 06 | Clinical dashboard | ✅ Done |
-| 07 | Integration, tests, deployment | ✅ Done ([extending](docs/EXTENDING.md)) |
-| 08 | Safety, docs, demo | ✅ Safety layers and [documentation PDF](docs/CoronaryTwin_documentation.pdf) done |
-| 09 | Specialities: next best test, guided tour, similar cases, OOD warning, cohort view, deeper evaluation | ✅ Done ([experiments](docs/experiments.md)) |
-| 10 | Dashboard redesign: calm dark theme, 3D stage with artery callouts, KPI strip, waterfall, Present and Lite modes | ✅ Done |
-| 11 | Versus guideline scores, reading reports (multimodal input), comparing visits on the heart | ✅ Done ([below](#additions-module-11), [experiments](docs/experiments.md#versus-guideline-pre-test-probability-scores)) |
-| 12 | Navigation sidebar, one-click Try Demo, generated PDF report | ✅ Done ([below](#sidebar-demo-and-pdf-report-module-12)) |
+| Overall CAD | Logistic regression | **0.92** (0.91–0.93) |
+| LAD (front artery) | Random forest | **0.85** (0.83–0.87) |
+| LCX (side artery) | Random forest | 0.72 (0.70–0.75) |
+| RCA (right artery) | Logistic regression | 0.72 (0.69–0.74) |
+
+- **Better than what doctors use today:** on overall CAD it ranks patients better than the ESC 2019 guideline pre-test score
+  by **+0.10 AUC** (95% CI +0.06 to +0.15), and better than the CAD Consortium score with risk factors by +0.05.
+- **Honest uncertainty:** conformal prediction at 90% coverage (measured 90.5%). When both outcomes remain possible, the
+  artery is shown as **Uncertain** instead of guessing.
+- **Says where it is weak:** for LCX and RCA it is not reliably better than simple clinical scores, and the app states this.
+
+## What it looks like
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/figures/readme/read-reports.png" alt="Read reports dialog: 40 values found in a lab PDF and photos of ECG, echo and referral reports, each with the line it came from"><br><b>Read reports.</b> Drop in a lab PDF or photos of ECG, echo and referral reports. On-device OCR proposes the values, converts units and shows the line each came from; nothing enters the record until you confirm it.</td>
+    <td width="50%"><img src="docs/figures/readme/trust.png" alt="Model trust tab: AUC per estimate and a comparison with ESC 2019, ESC 2013 and CAD Consortium guideline scores"><br><b>Versus guideline scores.</b> The Model trust tab compares the model with the ESC 2019, ESC 2013 and CAD Consortium pre-test scores on the same patients, with confidence intervals.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/figures/readme/why.png" alt="Why this estimate: driver chips, a waterfall from the average patient to this patient, and the strongest measurements"><br><b>Why this estimate.</b> A waterfall from the average patient to this one, in the model's own units, plus the strongest measurements and similar past patients.</td>
+    <td><img src="docs/figures/readme/whatif.png" alt="What-if tab: sliders for modifiable measurements with before and after estimates per artery"><br><b>What-if.</b> Sliders for the values a patient can change; the arteries recolor live. Model sensitivity, not medical advice.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/figures/readme/artery-detail.png" alt="Artery detail panel for the LAD with its own drivers, a what-if slider and links"><br><b>One artery at a time.</b> Each artery has its own model, drivers, sub-model range and what-if slider.</td>
+    <td><img src="docs/figures/readme/present.png" alt="Present mode stepping through the case artery by artery with generated captions"><br><b>Present mode.</b> A guided walkthrough with captions generated from the patient's numbers, for ward rounds or judges.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/figures/readme/next-best-test.png" alt="Next best test panel ranking the missing tests by how much they could move the estimates"><br><b>Next best test.</b> With missing values, it ranks which test would move the estimates most. Out-of-range or unusual inputs get a warning.</td>
+    <td><img src="docs/figures/readme/cohort.png" alt="Cohort mode: the 3D heart colored by the average estimates of an uploaded group of patients"><br><b>Cohorts.</b> Upload a CSV of many patients: each is scored, and the heart can show the cohort averages.</td>
+  </tr>
+</table>
+
+**Compare visits.** Save a visit, update the record (new values or newer reports), then scrub or play between the two; the heart, callouts and KPI tiles follow.
+
+<img src="docs/figures/readme/visits.png" alt="Visit comparison: visit 1 on the left with overall 96%, and the same patient after a normal follow-up echo on the right with overall 51%" width="100%">
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/figures/readme/pdf-report.png" alt="Generated PDF report: summary cards, 3D view, charts, guideline comparison and the full measurements table"><br><b>Export PDF.</b> A generated A4 report: estimates, charts, guideline comparison, every measurement with its source, and findings.</td>
+    <td width="50%"><img src="docs/figures/readme/mobile.png" alt="The report on a phone: KPI tiles, the 3D stage and the navigation drawer"><br><b>Works on phones.</b> The sidebar becomes a drawer and the layout reflows; light and dark themes.</td>
+  </tr>
+</table>
 
 ## The seven pillars
 
@@ -75,13 +119,13 @@ python tasks.py web       # frontend on http://localhost:5173, proxies /api to t
 If port 8000 is busy, run the API with `--port 8010` and start the frontend with `API_TARGET=http://127.0.0.1:8010`.
 `make <task>` works too on systems that have `make`.
 
-## Specialities (module 09)
+## More features
 
 | # | Speciality | Where | How |
 |---|---|---|---|
 | S3 | **Next best test** | Panel under the 3D view, shown when values are missing | `POST /next-best-test` ([src/nextbest.py](src/nextbest.py)) fills each blank (and each blank test, e.g. the whole echo) with values from the 25 most similar training patients, then ranks by how far the four estimates could still move. Ranks by model uncertainty, not clinical necessity. |
 | S4 | **Deeper evaluation** | Model trust tab, *Deeper evaluation* | [src/experiments.py](src/experiments.py): paired-bootstrap family comparison, ablation by feature group, decision curves, learning curves, calibration methods, engineered features, noise robustness, OOD and next-best-test checks → `artifacts/experiments.json`, [docs/experiments.md](docs/experiments.md) |
-| S5 | **Guided tour** | *Guided tour* button in the header, or `?tour=1` | Loads a real dataset patient when none is loaded, then runs Present mode (module 10): overview, each artery, why, what-if. |
+| S5 | **Guided tour** | *Guided tour* in the sidebar, or `?tour=1` | Loads a real dataset patient when none is loaded, then runs Present mode: overview, each artery, why, what-if. |
 | A2 | **Similar cases** | *Why this estimate* tab (clinician view) | `POST /similar`: the 5 nearest training patients in a SHAP-weighted space, matched only on recorded values, shown as coarse summaries (age band, sex, key findings) with their outcomes |
 | A3 | **Out-of-distribution warning** | Above the 3D stage, in the PDF and per batch row | `ood` in every `/predict` response: values beyond the training range, plus a Mahalanobis (Ledoit-Wolf) check for unusual combinations at a ~1% false-alarm rate |
 | A4 | **Cohort view** | Upload a multi-row CSV | Cohort overview: average estimate and Likely/Uncertain/Unlikely counts per artery, plus how many patients are flagged |
@@ -90,7 +134,7 @@ What each check showed is in [docs/experiments.md](docs/experiments.md). For exa
 of the blanked tests far more often than chance. A Hindi patient view (A6) is **not** included: the spec requires review of medical wording
 by a native speaker, and machine-translated clinical text should not ship without it.
 
-## Additions (module 11)
+## Guideline scores, report reading and visits
 
 | Addition | Where | How |
 |---|---|---|
@@ -103,7 +147,7 @@ and +0.05 over CAD Consortium with risk factors (+0.01 to +0.08). Against a clin
 +0.02 (−0.01 to +0.05): similar ranking, but more cautious at the extremes. For LCX and RCA the model is **not** reliably
 better than these simple baselines, and the app says so. Full tables: [docs/experiments.md](docs/experiments.md#versus-guideline-pre-test-probability-scores).
 
-## Sidebar, demo and PDF report (module 12)
+## Sidebar, demo and PDF report
 
 - **Sidebar:** a 240px navigation rail with OVERVIEW (Estimate, 3D heart, Method, Guided tour, Project overview), ANALYSIS
   (Why, What-if, Model trust) and REPORTS (Patient summary, Read reports, Export PDF) sections. Patient record, theme and
@@ -118,9 +162,9 @@ better than these simple baselines, and the app says so. Full tables: [docs/expe
   measurements table with source (entered / report / imputed), findings, and a footer with disclaimer and *Page X of Y*.
   Sections never split across pages. It always reports exact model output; what-if results are labeled.
 
-## Dashboard design (module 10)
+## Dashboard design
 
-- **Look:** a cool dark slate by default (light theme via the sun/moon button), one teal accent, and the risk ramp
+- **Look:** a cool dark slate by default (light theme from the sidebar), one teal accent, and the risk ramp
   (pale yellow → orange → rose) used **only** for risk. Two fonts: Fraunces for the title and the hero number, and Inter
   for everything else. No text is smaller than 12 px. The ramp's top color is #F02D55 rather than the spec's #FF3B5C, so
   the colors keep getting darker as risk rises (color-blind ordering, tested).
@@ -148,7 +192,7 @@ better than these simple baselines, and the app says so. Full tables: [docs/expe
 
 ## Use your own patients
 
-The report has no built-in demo patients: it starts empty (only the *Guided tour* loads one real dataset patient, on request), and every estimate comes live from the trained models for the patient you enter or upload. The landing page hero shows one of the four real dataset patients, scored live and labeled as such, without loading it into the report unless the visitor clicks *Open this patient in the report*. To try it, use the 50 synthetic sample files in [csv/](csv/) (see [csv/README.md](csv/README.md)):
+The quickest start is **▶ Try demo**, which loads five invented sample patients. Otherwise the report starts empty, and every estimate comes live from the trained models for the patient you enter, upload or read from reports. The landing page hero shows one of the four real dataset patients, scored live and labeled as such, without loading it into the report unless the visitor clicks *Open this patient in the report*. To try it, use the 50 synthetic sample files in [csv/](csv/) (see [csv/README.md](csv/README.md)):
 
 1. **Template:** use *Template* in the patient record, or *Download template* on the overview page. It is a CSV with all 51
    measurements and an example row.
@@ -179,7 +223,7 @@ To rebuild everything:
 Seeds are fixed (`config/settings.yaml` → `project.seed`), so the same environment reproduces the same numbers.
 For a quick sanity run, `python -m src.train --fast` takes about 1 minute and gives slightly different metrics.
 
-## Integration (module 07)
+## Integration
 
 - **Three registries** (`features.yaml`, `artifacts/registry.json`, `web/src/anatomy.json`) plus `config/settings.yaml`
   drive the form, validation, models, explanations and 3D scene.
@@ -227,7 +271,7 @@ For a quick sanity run, `python -m src.train --fast` takes about 1 minute and gi
 - [docs/CoronaryTwin_documentation.pdf](docs/CoronaryTwin_documentation.pdf): the 6-page documentation (source
   `docs/documentation.html`; rebuild with `cd web && node scripts/build_docs_pdf.mjs`).
 
-## API (module 04)
+## API
 
 | Method and path | Purpose |
 |---|---|
@@ -305,7 +349,7 @@ To regenerate the fixtures, run `python tasks.py mock`. The numbers are invented
 |---|---|
 | [config/settings.yaml](config/settings.yaml) | Vessel IDs, banned input columns, SHAP groups, conformal α, coherence thresholds, CORS, disclaimer text |
 | [features.yaml](features.yaml) | The 51 model inputs: canonical names, raw-column mapping, encodings, groups, valid and normal ranges, what-if flags, patient text, plus excluded columns with reasons |
-| `artifacts/registry.json` (module 02) | Model paths, thresholds, conformal quantiles, version |
+| `artifacts/registry.json` | Model paths, thresholds, conformal quantiles, version |
 | [web/src/anatomy.json](web/src/anatomy.json) | Vessel meshes: IDs, labels, curve control points, radii |
 
 The strings **`LAD`, `LCX`, `RCA` are the same everywhere**: settings, model files, API keys,
@@ -341,7 +385,7 @@ Shared rules live in [src/contract.py](src/contract.py): how a conformal set map
 
 (The values above are abbreviated. See the fixture files for complete responses.)
 
-## Data and leakage guard (module 01)
+## Data and leakage guard
 
 - **Dataset:** Extension of Z-Alizadeh Sani (UCI id 411): 303 patients and 59 columns, with no missing values. `python tasks.py data` downloads it into `data/raw/`.
 - **Targets:** CAD (from `Cath`, 71.3% positive), LAD (58.4%), LCX (39.3%) and RCA (37.6%).
@@ -350,7 +394,7 @@ Shared rules live in [src/contract.py](src/contract.py): how a conformal set map
 - **Leakage guard:** [src/leakage_guard.py](src/leakage_guard.py) builds X from a whitelist and also blocks every banned column. [tests/test_leakage.py](tests/test_leakage.py) enforces this. Preprocessing is an unfitted `ColumnTransformer` that is fitted inside CV folds.
 - **Audit:** no input's single-feature ROC-AUC comes close to 1.0 (the highest is typical chest pain at 0.80). Overall CAD equals "any stenotic vessel" for 302 of 303 patients. See [docs/data_report.md](docs/data_report.md).
 
-## Explainability (module 03)
+## Explainability
 
 - **Per-model SHAP** ([src/explain.py](src/explain.py)): LAD, LCX, RCA and CAD each get their own drivers. One-hot
   dummies are summed back to the original feature, and group totals are exact sums. Tests check that SHAP is
@@ -366,9 +410,9 @@ Shared rules live in [src/contract.py](src/contract.py): how a conformal set map
 - **Serving artifacts:** `artifacts/shap_background.csv`, `feature_stats.json`, `shap_global.json` and
   `shap_stability.json`. [src/inference.py](src/inference.py) is the shared model loader for the API.
 
-## 3D visualization (module 05)
+## 3D visualization
 
-![3D view](docs/figures/3d_high_anterior.png)
+![3D view: artery detail panel for the LAD on the 3D stage](docs/figures/readme/artery-detail.png)
 
 - **Procedural anatomy** ([web/src/scene/heartShape.ts](web/src/scene/heartShape.ts)): an analytic heart surface. Artery
   paths from `anatomy.json` are projected exactly onto it, so they never float off the heart from any angle (this is tested).
@@ -387,11 +431,11 @@ Shared rules live in [src/contract.py](src/contract.py): how a conformal set map
   If the API is offline, the app falls back to the bundled fixtures and shows a "Mock data" badge.
 - If port 8000 is taken, run the API elsewhere and set `API_TARGET=http://127.0.0.1:8010` for `npm run dev`.
 
-## Clinical dashboard (module 06)
+## Clinical dashboard
 
-![Dashboard](docs/figures/dashboard_clinician.png)
+![Dashboard in the light theme](docs/figures/readme/light.png)
 
-The visual design is described under *Dashboard design (module 10)* above: a dark slate theme (with a light theme),
+The visual design is described under *Dashboard design* above: a dark slate theme (with a light theme),
 one teal accent, Fraunces for the title and hero number and Inter for everything else. The answer comes first
 ("78% · Likely"). The risk ramp is the only strong color, and the state pills differ in shape as well as color:
 a solid pill for Likely, a dashed outline for Uncertain and a faint tinted one for Unlikely. Motion animates specific

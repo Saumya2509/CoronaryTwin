@@ -124,15 +124,19 @@ export default function App() {
 
   // Export PDF (md/final.md part 3): a generated A4 report. jsPDF loads only when it is first used.
   const exportSummary = useCallback(() => {
-    const canvas = document.querySelector<HTMLCanvasElement>(".stage canvas");
-    let shot: string | null = null;
-    try {
-      shot = canvas ? canvas.toDataURL("image/png") : null;
-    } catch { /* tainted or lost context: the report goes without the 3D image */ }
-    setSnapshot(shot);
+    // The 3D picture is taken by the exporter once the estimate has settled, so it matches the report.
+    const takeSnapshot = (): string | null => {
+      const canvas = document.querySelector<HTMLCanvasElement>(".stage canvas");
+      let shot: string | null = null;
+      try {
+        shot = canvas ? canvas.toDataURL("image/png") : null;
+      } catch { /* tainted or lost context: the report goes without the 3D image */ }
+      setSnapshot(shot);
+      return shot;
+    };
     const st = useRisk.getState();
     import("./report/pdf")
-      .then((m) => m.exportPdf(shot))
+      .then((m) => m.exportPdf(takeSnapshot))
       .catch((e: Error) => st.setToast(`PDF export failed: ${e.message}`));
   }, []);
 
