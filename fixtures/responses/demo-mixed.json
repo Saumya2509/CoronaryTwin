@@ -1,0 +1,761 @@
+{
+  "patient_id": "demo-mixed",
+  "overall": {
+    "prob": 0.68,
+    "uncertainty": 0.64,
+    "set": [
+      "CAD"
+    ],
+    "state": "Likely",
+    "label": "CAD likely",
+    "threshold": null,
+    "range": [
+      0.5732,
+      0.7868
+    ]
+  },
+  "vessels": {
+    "LAD": {
+      "prob": 0.58,
+      "uncertainty": 0.84,
+      "set": [
+        "CAD",
+        "No CAD"
+      ],
+      "state": "Uncertain",
+      "threshold": null,
+      "range": [
+        0.4492,
+        0.7108
+      ]
+    },
+    "LCX": {
+      "prob": 0.44,
+      "uncertainty": 0.88,
+      "set": [
+        "CAD",
+        "No CAD"
+      ],
+      "state": "Uncertain",
+      "threshold": null,
+      "range": [
+        0.3044,
+        0.5756
+      ]
+    },
+    "RCA": {
+      "prob": 0.22,
+      "uncertainty": 0.44,
+      "set": [
+        "No CAD"
+      ],
+      "state": "Unlikely",
+      "threshold": null,
+      "range": [
+        0.1372,
+        0.3028
+      ]
+    }
+  },
+  "coherence": {
+    "flag": false,
+    "note": ""
+  },
+  "explanations": {
+    "CAD": {
+      "groups": {
+        "Demographics": 0.38,
+        "History": 0.2,
+        "Symptoms": 0.0,
+        "Vitals": 0.12,
+        "Labs": 0.286,
+        "ECG": 0.12,
+        "Echo": 0.075
+      },
+      "features": [
+        {
+          "name": "bmi",
+          "value": 28.5,
+          "shap": 0.158,
+          "group": "Demographics",
+          "range_status": "above"
+        },
+        {
+          "name": "sex_male",
+          "value": 1.0,
+          "shap": 0.14,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "t_inversion",
+          "value": 1.0,
+          "shap": 0.12,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "hypertension",
+          "value": 1.0,
+          "shap": 0.1,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "current_smoker",
+          "value": 1.0,
+          "shap": 0.1,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "age",
+          "value": 57.0,
+          "shap": 0.082,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "ef_tte",
+          "value": 50.0,
+          "shap": 0.075,
+          "group": "Echo",
+          "range_status": "within"
+        },
+        {
+          "name": "bp",
+          "value": 138.0,
+          "shap": 0.072,
+          "group": "Vitals",
+          "range_status": "above"
+        },
+        {
+          "name": "tg",
+          "value": 190.0,
+          "shap": 0.072,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "ldl",
+          "value": 128.0,
+          "shap": 0.067,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "fbs",
+          "value": 118.0,
+          "shap": 0.055,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "hdl",
+          "value": 38.0,
+          "shap": 0.05,
+          "group": "Labs",
+          "range_status": "below"
+        },
+        {
+          "name": "pulse_rate",
+          "value": 84.0,
+          "shap": 0.048,
+          "group": "Vitals",
+          "range_status": "within"
+        },
+        {
+          "name": "creatinine",
+          "value": 1.1,
+          "shap": 0.024,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "esr",
+          "value": 18.0,
+          "shap": 0.018,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "diabetes",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "typical_chest_pain",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Symptoms",
+          "range_status": null
+        },
+        {
+          "name": "q_wave",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_elevation",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_depression",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "lvh",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "region_rwma",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Echo",
+          "range_status": null
+        }
+      ],
+      "text": "Largest drivers of the CAD estimate (log-odds): Body mass index 28.5 kg/m\u00b2 (+0.16); Sex (male) present (+0.14); T-wave inversion present (+0.12).",
+      "text_patient": "Your body weight for your height and your sex raised the overall heart estimate the most. Please discuss these results with your doctor.",
+      "base_value": 0.0,
+      "units": "log-odds"
+    },
+    "LAD": {
+      "groups": {
+        "Demographics": 0.271,
+        "History": 0.144,
+        "Symptoms": 0.0,
+        "Vitals": 0.072,
+        "Labs": 0.192,
+        "ECG": 0.16,
+        "Echo": 0.088
+      },
+      "features": [
+        {
+          "name": "t_inversion",
+          "value": 1.0,
+          "shap": 0.16,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "bmi",
+          "value": 28.5,
+          "shap": 0.113,
+          "group": "Demographics",
+          "range_status": "above"
+        },
+        {
+          "name": "sex_male",
+          "value": 1.0,
+          "shap": 0.1,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "ef_tte",
+          "value": 50.0,
+          "shap": 0.088,
+          "group": "Echo",
+          "range_status": "within"
+        },
+        {
+          "name": "hypertension",
+          "value": 1.0,
+          "shap": 0.072,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "current_smoker",
+          "value": 1.0,
+          "shap": 0.072,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "age",
+          "value": 57.0,
+          "shap": 0.058,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "tg",
+          "value": 190.0,
+          "shap": 0.048,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "ldl",
+          "value": 128.0,
+          "shap": 0.045,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "bp",
+          "value": 138.0,
+          "shap": 0.043,
+          "group": "Vitals",
+          "range_status": "above"
+        },
+        {
+          "name": "fbs",
+          "value": 118.0,
+          "shap": 0.037,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "hdl",
+          "value": 38.0,
+          "shap": 0.034,
+          "group": "Labs",
+          "range_status": "below"
+        },
+        {
+          "name": "pulse_rate",
+          "value": 84.0,
+          "shap": 0.029,
+          "group": "Vitals",
+          "range_status": "within"
+        },
+        {
+          "name": "creatinine",
+          "value": 1.1,
+          "shap": 0.016,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "esr",
+          "value": 18.0,
+          "shap": 0.012,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "diabetes",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "typical_chest_pain",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Symptoms",
+          "range_status": null
+        },
+        {
+          "name": "q_wave",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_elevation",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_depression",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "lvh",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "region_rwma",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Echo",
+          "range_status": null
+        }
+      ],
+      "text": "Largest drivers of the LAD estimate (log-odds): T-wave inversion present (+0.16); Body mass index 28.5 kg/m\u00b2 (+0.11); Sex (male) present (+0.10).",
+      "text_patient": "A finding on your heart tracing (T wave) and your body weight for your height raised the estimate for the front artery the most. Please discuss these results with your doctor.",
+      "base_value": 0.0,
+      "units": "log-odds"
+    },
+    "LCX": {
+      "groups": {
+        "Demographics": 0.217,
+        "History": 0.16,
+        "Symptoms": 0.0,
+        "Vitals": 0.09,
+        "Labs": 0.319,
+        "ECG": 0.072,
+        "Echo": 0.05
+      },
+      "features": [
+        {
+          "name": "bmi",
+          "value": 28.5,
+          "shap": 0.09,
+          "group": "Demographics",
+          "range_status": "above"
+        },
+        {
+          "name": "sex_male",
+          "value": 1.0,
+          "shap": 0.08,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "hypertension",
+          "value": 1.0,
+          "shap": 0.08,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "current_smoker",
+          "value": 1.0,
+          "shap": 0.08,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "tg",
+          "value": 190.0,
+          "shap": 0.08,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "ldl",
+          "value": 128.0,
+          "shap": 0.075,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "t_inversion",
+          "value": 1.0,
+          "shap": 0.072,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "fbs",
+          "value": 118.0,
+          "shap": 0.061,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "hdl",
+          "value": 38.0,
+          "shap": 0.056,
+          "group": "Labs",
+          "range_status": "below"
+        },
+        {
+          "name": "bp",
+          "value": 138.0,
+          "shap": 0.054,
+          "group": "Vitals",
+          "range_status": "above"
+        },
+        {
+          "name": "ef_tte",
+          "value": 50.0,
+          "shap": 0.05,
+          "group": "Echo",
+          "range_status": "within"
+        },
+        {
+          "name": "age",
+          "value": 57.0,
+          "shap": 0.047,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "pulse_rate",
+          "value": 84.0,
+          "shap": 0.036,
+          "group": "Vitals",
+          "range_status": "within"
+        },
+        {
+          "name": "creatinine",
+          "value": 1.1,
+          "shap": 0.027,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "esr",
+          "value": 18.0,
+          "shap": 0.02,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "diabetes",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "typical_chest_pain",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Symptoms",
+          "range_status": null
+        },
+        {
+          "name": "q_wave",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_elevation",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_depression",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "lvh",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "region_rwma",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Echo",
+          "range_status": null
+        }
+      ],
+      "text": "Largest drivers of the LCX estimate (log-odds): Body mass index 28.5 kg/m\u00b2 (+0.09); Sex (male) present (+0.08); Hypertension present (+0.08).",
+      "text_patient": "Your body weight for your height and your sex raised the estimate for the side artery the most. Please discuss these results with your doctor.",
+      "base_value": 0.0,
+      "units": "log-odds"
+    },
+    "RCA": {
+      "groups": {
+        "Demographics": 0.238,
+        "History": 0.2,
+        "Symptoms": 0.0,
+        "Vitals": 0.108,
+        "Labs": 0.239,
+        "ECG": 0.12,
+        "Echo": 0.038
+      },
+      "features": [
+        {
+          "name": "t_inversion",
+          "value": 1.0,
+          "shap": 0.12,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "hypertension",
+          "value": 1.0,
+          "shap": 0.1,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "current_smoker",
+          "value": 1.0,
+          "shap": 0.1,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "bmi",
+          "value": 28.5,
+          "shap": 0.099,
+          "group": "Demographics",
+          "range_status": "above"
+        },
+        {
+          "name": "sex_male",
+          "value": 1.0,
+          "shap": 0.088,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "bp",
+          "value": 138.0,
+          "shap": 0.065,
+          "group": "Vitals",
+          "range_status": "above"
+        },
+        {
+          "name": "tg",
+          "value": 190.0,
+          "shap": 0.06,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "ldl",
+          "value": 128.0,
+          "shap": 0.056,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "age",
+          "value": 57.0,
+          "shap": 0.051,
+          "group": "Demographics",
+          "range_status": null
+        },
+        {
+          "name": "fbs",
+          "value": 118.0,
+          "shap": 0.046,
+          "group": "Labs",
+          "range_status": "above"
+        },
+        {
+          "name": "pulse_rate",
+          "value": 84.0,
+          "shap": 0.043,
+          "group": "Vitals",
+          "range_status": "within"
+        },
+        {
+          "name": "hdl",
+          "value": 38.0,
+          "shap": 0.042,
+          "group": "Labs",
+          "range_status": "below"
+        },
+        {
+          "name": "ef_tte",
+          "value": 50.0,
+          "shap": 0.038,
+          "group": "Echo",
+          "range_status": "within"
+        },
+        {
+          "name": "creatinine",
+          "value": 1.1,
+          "shap": 0.02,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "esr",
+          "value": 18.0,
+          "shap": 0.015,
+          "group": "Labs",
+          "range_status": "within"
+        },
+        {
+          "name": "diabetes",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "History",
+          "range_status": null
+        },
+        {
+          "name": "typical_chest_pain",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Symptoms",
+          "range_status": null
+        },
+        {
+          "name": "q_wave",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_elevation",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "st_depression",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "lvh",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "ECG",
+          "range_status": null
+        },
+        {
+          "name": "region_rwma",
+          "value": 0.0,
+          "shap": 0.0,
+          "group": "Echo",
+          "range_status": null
+        }
+      ],
+      "text": "Largest drivers of the RCA estimate (log-odds): T-wave inversion present (+0.12); Hypertension present (+0.10); Current smoker present (+0.10).",
+      "text_patient": "A finding on your heart tracing (T wave) and high blood pressure diagnosis raised the estimate for the right artery the most. Please discuss these results with your doctor.",
+      "base_value": 0.0,
+      "units": "log-odds"
+    }
+  },
+  "imputed": [],
+  "ood": {
+    "flag": false,
+    "out_of_range": [],
+    "unusual_combination": false,
+    "typicality": 0.5,
+    "reasons": []
+  },
+  "guideline": null,
+  "model_version": "mock-0",
+  "disclaimer": "For decision support and educational purposes only. Not a substitute for formal diagnostic imaging or clinical judgment."
+}

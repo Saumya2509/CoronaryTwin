@@ -1,0 +1,47 @@
+{
+  "_note": "Schematic placement only (callout.at = fraction along the artery where its floating label is anchored; side = preferred side in the front view): the dataset has vessel-level labels, not lesion locations. Vessel ids must match config/settings.yaml targets.vessels. Frame: heart-local, apex toward -y, anterior toward +z, patient's left toward +x. Points are DIRECTIONS from the heart center; the renderer projects them onto the heart surface so arteries never float off it.",
+  "heart": {
+    "tilt": [-0.25, 0.0, 0.35],
+    "surface_offset": 0.012
+  },
+  "vessels": [
+    {
+      "id": "LAD",
+      "label": "Left Anterior Descending",
+      "patient_label": "Front artery",
+      "territory": "Anterior wall and septum",
+      "points": [[0.2, 0.78, 0.42], [0.14, 0.5, 0.75], [0.06, 0.12, 0.95], [-0.02, -0.3, 0.86], [-0.04, -0.66, 0.56], [0.0, -0.96, 0.18]],
+      "radius": 0.026,
+      "segments": ["proximal", "mid", "distal"],
+      "callout": {"at": 0.42, "side": "right"}
+    },
+    {
+      "id": "LCX",
+      "label": "Left Circumflex",
+      "patient_label": "Side artery",
+      "territory": "Lateral and posterior-lateral wall",
+      "points": [[0.28, 0.74, 0.38], [0.62, 0.56, 0.22], [0.86, 0.4, -0.14], [0.66, 0.3, -0.62], [0.3, 0.16, -0.88], [0.22, -0.18, -0.92]],
+      "radius": 0.023,
+      "segments": ["proximal", "mid", "distal"],
+      "callout": {"at": 0.3, "side": "right"}
+    },
+    {
+      "id": "RCA",
+      "label": "Right Coronary Artery",
+      "patient_label": "Right artery",
+      "territory": "Right ventricle and inferior wall",
+      "points": [[-0.22, 0.72, 0.5], [-0.6, 0.56, 0.46], [-0.9, 0.34, 0.06], [-0.72, 0.2, -0.54], [-0.22, 0.08, -0.92], [0.0, -0.34, -0.86], [0.04, -0.7, -0.6]],
+      "radius": 0.028,
+      "segments": ["proximal", "mid", "distal"],
+      "callout": {"at": 0.28, "side": "left"}
+    }
+  ],
+  "decorations": [
+    {
+      "id": "LM",
+      "label": "Left main (not modeled)",
+      "points": [[0.02, 0.86, 0.3], [0.12, 0.82, 0.38], [0.22, 0.77, 0.4]],
+      "radius": 0.03
+    }
+  ]
+}

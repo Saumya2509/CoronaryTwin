@@ -1,0 +1,10 @@
+{
+  "note": "The five sample patients loaded by Try Demo (md/final.md). Invented patients, not dataset rows. Chosen for complete values and a spread of outcomes; re-check the labels if the models are retrained.",
+  "demo": [
+    {"file": "01_healthy_young_woman.csv", "label": "Low risk", "description": "34-year-old woman, no symptoms, normal tests."},
+    {"file": "17_high_ldl_triglycerides.csv", "label": "Moderate risk", "description": "49-year-old man with high LDL and triglycerides: every artery uncertain, useful what-if sliders."},
+    {"file": "14_reduced_ef_wall_motion.csv", "label": "High risk", "description": "68-year-old man, EF 30% with wall-motion abnormality in three regions."},
+    {"file": "12_left_bundle_branch_block.csv", "label": "Edge case", "description": "70-year-old man with left bundle branch block: all four estimates stay uncertain."},
+    {"file": "19_chronic_kidney_disease.csv", "label": "Mixed", "description": "67-year-old man with chronic kidney disease: CAD likely, arteries differ."}
+  ]
+}

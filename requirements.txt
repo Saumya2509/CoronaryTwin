@@ -1,0 +1,26 @@
+# Pinned for reproducibility (Python 3.13). Verified to install together.
+# ML
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+xgboost==3.4.1
+lightgbm==4.7.0
+shap==0.52.0
+joblib==1.6.0
+matplotlib==3.11.2
+openpyxl==3.1.5
+lime==0.2.0.1          # SHAP cross-check (src/lime_check.py)
+PyYAML==6.0.3
+# API
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+python-multipart==0.0.32
+# Report reading (src/extract.py): PDF text, on-device OCR (ONNX models ship in the wheel), optional Claude
+pypdf==6.19.0
+rapidocr==3.9.2
+onnxruntime==1.30.0
+anthropic==1.11.0     # used only when CORONARYTWIN_CLAUDE_EXTRACT=1
+# Tests
+pytest==9.1.1
+httpx==0.28.1

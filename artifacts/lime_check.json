@@ -1,0 +1,26 @@
+{
+  "n_patients": 20,
+  "lime_samples": 2000,
+  "targets": {
+    "CAD": {
+      "top1_agreement": 0.5,
+      "top3_overlap": 0.7,
+      "top5_overlap": 0.62
+    },
+    "LAD": {
+      "top1_agreement": 0.8,
+      "top3_overlap": 0.683,
+      "top5_overlap": 0.78
+    },
+    "LCX": {
+      "top1_agreement": 0.6,
+      "top3_overlap": 0.7,
+      "top5_overlap": 0.68
+    },
+    "RCA": {
+      "top1_agreement": 0.25,
+      "top3_overlap": 0.6,
+      "top5_overlap": 0.76
+    }
+  }
+}

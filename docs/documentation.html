@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CoronaryTwin: project documentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Source for CoronaryTwin_documentation.pdf (6 A4 pages). Rebuild: node scripts/build_docs_pdf.cjs */
+  @page { size: A4; margin: 13mm 14mm 14mm; }
+  :root { --ink: #0E1830; --muted: #566683; --line: #D6DEEC; --accent: #0F8F82; --warn: #B86E00; --panel: #F4F6FB; }
+  * { box-sizing: border-box; }
+  body { font: 9.4pt/1.42 Inter, system-ui, sans-serif; color: var(--ink); margin: 0; }
+  h1 { font: 600 25pt/1.1 Fraunces, Georgia, serif; margin: 0 0 3mm; letter-spacing: -0.01em; }
+  h2 { font: 700 13pt/1.2 Inter, sans-serif; margin: 0 0 2.5mm; padding-bottom: 1.5mm; border-bottom: 2px solid var(--accent); }
+  h3 { font: 700 10pt/1.2 Inter, sans-serif; margin: 3.5mm 0 1.5mm; }
+  p { margin: 0 0 2mm; }
+  ul { margin: 0 0 2mm; padding-left: 5mm; } li { margin-bottom: 0.8mm; }
+  .page { page-break-after: always; break-after: page; }
+  .page:last-child { page-break-after: auto; }
+  .kicker { font-size: 7.6pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5mm; }
+  .lede { font-size: 10.6pt; color: #24324f; margin-bottom: 3mm; }
+  .banner { border-left: 3.5px solid var(--warn); background: #FFF6E5; padding: 2mm 3mm; font-weight: 600; font-size: 8.6pt; margin: 0 0 3mm; }
+  table { width: 100%; border-collapse: collapse; margin: 1mm 0 2.5mm; font-size: 8.4pt; }
+  th, td { text-align: left; padding: 1.1mm 1.8mm 1.1mm 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); border-bottom: 1.5px solid var(--ink); }
+  td.n { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .glance { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm; margin: 2mm 0 3mm; }
+  .glance div { background: var(--panel); border: 1px solid var(--line); border-radius: 2mm; padding: 2mm 3mm; }
+  .glance b { display: block; font-size: 16pt; font-variant-numeric: tabular-nums; }
+  .glance span { font-size: 7.4pt; color: var(--muted); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; }
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; }
+  figure { margin: 0 0 2.5mm; }
+  figure img { width: 100%; border: 1px solid var(--line); border-radius: 1.5mm; display: block; }
+  figure.crop img { object-fit: cover; object-position: top; }
+  figcaption { font-size: 7.6pt; color: var(--muted); margin-top: 1mm; }
+  .arch { display: grid; grid-template-columns: 1fr 14mm 1.25fr 14mm 1fr; align-items: center; margin: 2mm 0 3mm; font-size: 8.2pt; }
+  .arch .box { border: 1.5px solid var(--ink); border-radius: 2mm; padding: 2mm 2.5mm; }
+  .arch .box b { display: block; margin-bottom: 0.8mm; }
+  .arch .arrow { text-align: center; color: var(--accent); font-size: 14pt; }
+  .note { font-size: 8pt; color: var(--muted); }
+  .pill { display: inline-block; border-radius: 99px; padding: 0 2mm; font-size: 7.6pt; font-weight: 700; background: #EEF2F9; }
+  code { font: 8pt ui-monospace, Consolas, monospace; background: var(--panel); padding: 0 1mm; border-radius: 1mm; }
+  .foot { position: fixed; bottom: -8mm; left: 0; right: 0; font-size: 7pt; color: var(--muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="foot"><span>CoronaryTwin · Multimodal AI Hackathon 2026, Track A</span><span>Decision support and education only. Not a diagnosis.</span></div>
+
+<!-- ============================================================ 1 -->
+<section class="page">
+  <div class="kicker">Multimodal AI Hackathon 2026 · Track A: Cardiovascular Risk Visualization &amp; Prediction</div>
+  <h1>CoronaryTwin</h1>
+  <p class="lede">A 3D coronary "twin" that shows <b>where</b> risk sits (overall CAD and the LAD, LCX and RCA arteries), <b>how sure</b> the model is,
+    <b>why</b> it thinks so, and <b>what would change it</b>, from 51 routine clinical measurements.</p>
+  <div class="banner">Decision support and educational use only. Not a diagnosis and not a substitute for formal diagnostic imaging or clinical judgment.
+    The 3D coloring is schematic: it comes from vessel-level estimates, not lesion locations.</div>
+
+  <h2>Results at a glance</h2>
+  <p>Every number below comes from patients the model never saw (nested 5×5 repeated cross-validation, no tuning on test folds). Brackets are 95% confidence intervals.</p>
+  <div class="glance">
+    <div><span>Overall CAD · ROC-AUC</span><b>0.92</b><span>0.91–0.93 · logistic regression</span></div>
+    <div><span>LAD · ROC-AUC</span><b>0.85</b><span>0.83–0.87 · random forest</span></div>
+    <div><span>LCX · ROC-AUC</span><b>0.72</b><span>0.70–0.75 · random forest</span></div>
+    <div><span>RCA · ROC-AUC</span><b>0.72</b><span>0.69–0.74 · logistic regression</span></div>
+  </div>
+  <p>Conformal coverage <b>90.5–90.7%</b> (target 90%). When both outcomes remain possible, the artery is drawn <b>Uncertain</b> (translucent, dashed) instead of looking certain.</p>
+
+  <h2>What the app does</h2>
+  <div class="arch">
+    <div class="box"><b>Input</b>Form or CSV (one or many patients). Any missing value is imputed and flagged.</div>
+    <div class="arrow">→</div>
+    <div class="box"><b>FastAPI</b>Schema validation from the feature registry · 4 calibrated models · conformal sets · per-vessel SHAP ·
+      OOD check · next best test · similar cases</div>
+    <div class="arrow">→</div>
+    <div class="box"><b>React + three.js</b>One store drives the KPI strip, the 3D stage with artery callouts, and the explanation tabs</div>
+  </div>
+  <figure class="crop"><img style="height: 58mm; object-position: center 40%" src="figures/3d_high_anterior.png" alt="3D stage with artery callouts">
+    <figcaption>Fig. 1 · The 3D stage: overall estimate, a callout on each artery, and the drivers card. LCX and RCA are Uncertain (dashed).</figcaption></figure>
+
+  <h3>What makes it different</h3>
+  <ul>
+    <li><b>Uncertainty you can see:</b> calibrated probabilities, conformal "Uncertain" states, and a sub-model range on every estimate.</li>
+    <li><b>Explanations on the anatomy:</b> SHAP per artery, a waterfall that adds up exactly, and glows on the heart linked to the chart.</li>
+    <li><b>Clinically shaped tools:</b> next best test (which missing value matters most), similar historical cases, out-of-distribution warning, cohort view.</li>
+    <li><b>Honest by construction:</b> safety banner in every view, captions generated from the patient's own numbers, and the limits stated in the app.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 2 -->
+<section class="page">
+  <h2>1 · Data, preprocessing and the leakage guard</h2>
+  <div class="two">
+    <div>
+      <p><b>Dataset:</b> Extension of Z-Alizadeh Sani (UCI id 411, DOI 10.24432/C5461K). 303 catheterized patients from one center, 59 columns, no missing values.</p>
+      <table>
+        <thead><tr><th>Target</th><th>Definition</th><th>Positive</th></tr></thead>
+        <tbody>
+          <tr><td>CAD</td><td>Overall coronary artery disease (Cath)</td><td class="n">71.3%</td></tr>
+          <tr><td>LAD</td><td>Left anterior descending ≥ 50% stenosis</td><td class="n">58.4%</td></tr>
+          <tr><td>LCX</td><td>Left circumflex ≥ 50% stenosis</td><td class="n">39.3%</td></tr>
+          <tr><td>RCA</td><td>Right coronary artery ≥ 50% stenosis</td><td class="n">37.6%</td></tr>
+        </tbody>
+      </table>
+      <p><b>Inputs:</b> 51 features in 7 explanation groups: Demographics, History, Symptoms, Vitals, Labs, ECG and Echo.
+        Excluded with reasons: the four label columns, Weight and Length (BMI is computed exactly from them), Obesity (equals BMI &gt; 25) and Exertional CP (constant).</p>
+    </div>
+    <figure><img src="figures/target_balance.png" alt="Class balance per target"><figcaption>Fig. 2 · Class balance per target.</figcaption></figure>
+  </div>
+
+  <h3>Feature registry: one source of truth</h3>
+  <p><code>features.yaml</code> holds each input's name, source column, encoding, group, valid and normal range, whether it is modifiable, and patient wording.
+    It generates the API's input validation, the form, the SHAP groups, the what-if sliders and the patient text. A new feature needs no code change, and a test proves it.</p>
+
+  <h3>Leakage guard</h3>
+  <ul>
+    <li>Model inputs are built from a <b>whitelist</b> (the registry), and a <b>blacklist</b> blocks every label column. <code>test_leakage.py</code> fails if one reaches <code>fit</code>.</li>
+    <li>All preprocessing (imputation, scaling, one-hot) is an unfitted pipeline that is <b>fitted inside each training fold only</b>.</li>
+    <li>Audit: no single input has a ROC-AUC near 1.0 (highest: typical chest pain, 0.80). Overall CAD equals "any stenotic vessel" for 302 of 303 patients, which is consistent.</li>
+  </ul>
+
+  <h2>2 · Models and validation</h2>
+  <ul>
+    <li><b>Four families</b> per target (logistic regression, random forest, XGBoost, LightGBM), tuned inside an <b>inner</b> 3-fold search and scored on an <b>outer</b>
+      5-fold × 5-repeat split. The simplest family within one standard error of the best is kept.</li>
+    <li><b>Calibration:</b> Platt scaling with 5 cross-fitted copies; their spread gives the <b>sub-model range</b> shown for every estimate (model disagreement, not a CI).</li>
+    <li><b>Conformal prediction</b> at α = 0.10 turns each probability into Likely / Unlikely / Uncertain, with coverage checked on held-out folds.</li>
+    <li><b>Thresholds</b> favor recall (≥ 0.85), because a missed narrowing costs more than a false alarm.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ 3 -->
+<section class="page">
+  <h2>3 · Results (nested cross-validation, out-of-fold)</h2>
+  <table>
+    <thead><tr><th>Target</th><th>Model</th><th>ROC-AUC (95% CI)</th><th>Brier</th><th>Threshold</th><th>Recall</th><th>Precision</th><th>F1</th><th>Coverage</th><th>Uncertain</th></tr></thead>
+    <tbody>
+      <tr><td>CAD</td><td>Logistic regression</td><td class="n">0.92 (0.91–0.93)</td><td class="n">0.104</td><td class="n">0.65</td><td class="n">0.85</td><td class="n">0.92</td><td class="n">0.89</td><td class="n">90.5%</td><td class="n">11%</td></tr>
+      <tr><td>LAD</td><td>Random forest</td><td class="n">0.85 (0.83–0.87)</td><td class="n">0.158</td><td class="n">0.50</td><td class="n">0.85</td><td class="n">0.79</td><td class="n">0.82</td><td class="n">90.6%</td><td class="n">35%</td></tr>
+      <tr><td>LCX</td><td>Random forest</td><td class="n">0.72 (0.70–0.75)</td><td class="n">0.206</td><td class="n">0.29</td><td class="n">0.86</td><td class="n">0.50</td><td class="n">0.63</td><td class="n">90.5%</td><td class="n">58%</td></tr>
+      <tr><td>RCA</td><td>Logistic regression</td><td class="n">0.72 (0.69–0.74)</td><td class="n">0.204</td><td class="n">0.28</td><td class="n">0.85</td><td class="n">0.48</td><td class="n">0.62</td><td class="n">90.7%</td><td class="n">55%</td></tr>
+    </tbody>
+  </table>
+  <p class="note">LCX and RCA are harder to predict from routine data. Their learning curves still rise at the full training size, and these models say
+    <b>Uncertain</b> for more patients by design rather than guessing.</p>
+  <div class="two">
+    <figure><img src="figures/roc.png" alt="ROC curves"><figcaption>Fig. 3 · Out-of-fold ROC curves.</figcaption></figure>
+    <figure><img src="figures/calibration.png" alt="Calibration curves"><figcaption>Fig. 4 · Reliability after Platt scaling.</figcaption></figure>
+  </div>
+
+  <h3>Checks beyond the headline numbers</h3>
+  <table>
+    <thead><tr><th>Experiment</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>Paired bootstrap, every family vs the selected one</td><td>No family is reliably better (every 95% CI of ΔAUC includes 0).</td></tr>
+      <tr><td>Soft-vote ensemble of all four families</td><td>AUC 0.923 / 0.850 / 0.719 / 0.732: no meaningful gain, so it was not adopted.</td></tr>
+      <tr><td>Classifier chain (overall CAD estimate as an input to the artery models, nested)</td><td>ΔAUC +0.006 / +0.001 / −0.007 (LAD/LCX/RCA), no reliable gain.</td></tr>
+      <tr><td>Ablation by measurement group</td><td>Symptoms help every model most (−0.03 to −0.07 AUC when removed); Echo matters for LAD (−0.037).</td></tr>
+      <tr><td>Engineered features (risk-factor count, ECG-abnormality count, LDL/HDL, interactions)</td><td>No reliable gain; reported, not used.</td></tr>
+      <tr><td>Input noise of 10% of each feature's spread</td><td>Mean |Δp| ≤ 0.03; <b>0% Likely↔Unlikely flips</b> for all four models.</td></tr>
+      <tr><td>Decision curves</td><td>Net benefit above "treat all" and "treat none" across clinically used thresholds.</td></tr>
+      <tr><td>Subgroups (sex, age bands)</td><td>Reported in the app; groups too small to judge are marked.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">All of these are reproducible with <code>python tasks.py experiments</code> and appear in the app's Model-trust tab.</p>
+</section>
+
+<!-- ============================================================ 4 -->
+<section class="page">
+  <h2>4 · Explainability</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li><b>SHAP per artery:</b> each of the four models has its own explanation (LinearExplainer or TreeExplainer). Selecting the LAD shows LAD drivers.</li>
+        <li><b>Waterfall:</b> from the average patient to this patient's model score, one bar per measurement group, in the model's own units so it adds up exactly.
+          Hovering a group lights up its glow or gauge on the 3D heart.</li>
+        <li><b>Stability:</b> feature rankings across 5 refits agree with Spearman ρ 0.78–0.92.</li>
+        <li><b>LIME cross-check:</b> on 20 patients per model, LIME and SHAP share 60–70% of their top-3 drivers (chance about 6%).</li>
+        <li><b>Two audiences:</b> a clinician view with values and units, and a plain-language patient view with summary cards.</li>
+      </ul>
+    </div>
+    <figure><img src="figures/shap_groups.png" alt="Grouped SHAP"><figcaption>Fig. 5 · Share of each measurement group in each model's explanation.</figcaption></figure>
+  </div>
+  <figure class="crop"><img style="height: 74mm" src="figures/dashboard_why.png" alt="Why this estimate tab"><figcaption>Fig. 6 · "Why this estimate": waterfall, per-measurement drivers, and similar historical cases.</figcaption></figure>
+
+  <h3>From explanation to action, honestly</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What it does</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>What-if</td><td>Moves modifiable values; arteries recolor live; the counterfactual finds the smallest change below the threshold.</td><td>Labeled model sensitivity, not advice. Explains when changes are small (strongest drivers not modifiable).</td></tr>
+      <tr><td>Next best test</td><td>For missing values, ranks the test that would change the estimate most, using values from similar patients.</td><td>Picked the single most informative test in 68% of 60 patients (chance 33%).</td></tr>
+      <tr><td>Similar cases</td><td>The 5 nearest training patients in a SHAP-weighted space, as coarse summaries with their outcomes.</td><td>No raw rows or row numbers are ever returned.</td></tr>
+      <tr><td>Out-of-distribution warning</td><td>Flags values beyond the training range and unusual combinations (Mahalanobis).</td><td>1.3% false alarms on real patients; 100% of out-of-range synthetic patients flagged.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================================ 5 -->
+<section class="page">
+  <h2>5 · 3D visualization</h2>
+  <div class="two">
+    <figure><img src="figures/3d_mixed_lcx_uncertain.png" alt="3D stage, LCX selected"><figcaption>Fig. 7 · LCX selected: the camera flies in and the detail panel shows its drivers and a what-if slider.</figcaption></figure>
+    <figure><img src="figures/3d_discordant_posterior_ghost.png" alt="3D stage, posterior ghost"><figcaption>Fig. 8 · Posterior view in ghost mode: the arteries' full course is visible.</figcaption></figure>
+  </div>
+  <ul>
+    <li><b>Procedural anatomy, no third-party meshes:</b> one analytic surface with ventricles, atria and appendages, and grooves fitted to the artery paths.
+      Arteries are projected exactly onto it, so they never float off the heart (tested). Muscle, epicardial fat, the great vessels and a wet sheen are generated in code.</li>
+    <li><b>Encoding:</b> color = calibrated probability on a yellow → rose ramp used only for risk (luminance falls monotonically, tested). Uncertainty =
+      translucency, a dashed outline and a slow, irregular pulse. Color is always paired with a number and a word.</li>
+    <li><b>Interaction:</b> rotate, zoom, presets, click an artery (the camera flies in and a detail panel opens with its drivers and a what-if slider),
+      ghost heart, explanation overlays, cohort averages, and <b>Present mode</b>, a captioned walkthrough generated from the patient's numbers.</li>
+    <li><b>Performance:</b> about 110k triangles, renders on demand. Measured on <b>Intel HD Graphics 620</b> (integrated): 36–44 fps with all effects,
+      60 fps in Lite mode, which switches on automatically below 14 fps. A 2D SVG fallback covers browsers without WebGL.</li>
+  </ul>
+  <div class="two">
+    <figure><img src="figures/present_mode.png" alt="Present mode"><figcaption>Fig. 9 · Present mode: steps, a data-driven caption, and the camera on the LAD.</figcaption></figure>
+    <figure><img src="figures/cohort_heart.png" alt="Cohort averages on the heart"><figcaption>Fig. 10 · Cohort mode: a 20-patient upload shown as averages on the heart, clearly badged.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============================================================ 6 -->
+<section class="page">
+  <h2>6 · Integration, running it, limits and credits</h2>
+  <div class="two">
+    <div>
+      <h3>Run it</h3>
+      <ul>
+        <li><b>Docker:</b> <code>docker compose up --build</code> → http://localhost:8080 (API docs at :8000/docs).</li>
+        <li><b>Local:</b> <code>python tasks.py setup</code>, <code>python tasks.py serve</code>, <code>python tasks.py web</code>.</li>
+        <li><b>Try it:</b> <i>Watch the 90-second tour</i> on the landing page, or upload a file from <code>csv/</code> (50 synthetic samples, single and cohort).</li>
+        <li><b>Rebuild everything:</b> <code>data → train → explain → experiments</code>; seeds are fixed, so numbers reproduce.</li>
+      </ul>
+      <h3>Engineering</h3>
+      <ul>
+        <li>120 Python tests (leakage, API contract, SHAP additivity, registries, specialities) and 84 web tests, plus an end-to-end browser test of the judge path.</li>
+        <li>CI: registry check, tests, web build, both Docker images, a smoke test through nginx, and the end-to-end test.</li>
+        <li>Registries (<code>features.yaml</code>, <code>registry.json</code>, <code>anatomy.json</code>) are cross-checked; a new feature, model or artery is a registry edit.</li>
+        <li>Privacy: patient inputs and IDs are never stored; a SQLite log keeps anonymous outputs only (<code>view_db.py</code>).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Safety layers</h3>
+      <ul>
+        <li>Persistent banner in every view, in Present mode and in the exported PDF; first-use acknowledgement.</li>
+        <li>"Disclaimer" field in every API response; wording says "estimated" and "likely", never "diagnosed".</li>
+        <li>Schematic tag on the 3D stage; captions never say more than the numbers.</li>
+      </ul>
+      <h3>Limitations</h3>
+      <ul>
+        <li>303 patients from a single center; <b>no external validation</b>. The original and extended Z-Alizadeh Sani files contain the same patients.</li>
+        <li>Labels are per vessel (≥ 50% stenosis), not per lesion: the 3D coloring cannot show where a narrowing is.</li>
+        <li>Explanations describe associations the model learned, not biological cause; what-if is model sensitivity, not treatment advice.</li>
+        <li>LCX and RCA discrimination is moderate (AUC ≈ 0.72).</li>
+      </ul>
+      <h3>Future work</h3>
+      <ul>
+        <li>External validation on an independent cohort; a browser-only (ONNX) inference mode; a reviewed regional-language patient view.</li>
+      </ul>
+      <h3>Credits</h3>
+      <p class="note">Data: Alizadehsani R., Roshanzamir M., Sani Z. (2013). Extension of Z-Alizadeh Sani dataset. UCI Machine Learning Repository,
+        DOI 10.24432/C5461K. 3D: all geometry and textures procedural (no third-party assets). Libraries: scikit-learn, XGBoost, LightGBM, SHAP, LIME,
+        FastAPI, React, three.js / React Three Fiber, under their open-source licenses.</p>
+    </div>
+  </div>
+  <figure class="crop"><img style="height: 52mm" src="figures/dashboard_patient.png" alt="Patient view"><figcaption>Fig. 11 · Patient view: plain-language cards and "Please talk to your doctor about these results."</figcaption></figure>
+</section>
+</body>
+</html>

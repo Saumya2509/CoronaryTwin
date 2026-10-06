@@ -1,0 +1,71 @@
+{
+  "CAD": {
+    "spearman_mean": 0.846,
+    "spearman_min": 0.805,
+    "top5_jaccard_mean": 0.557,
+    "top5_frequency": {
+      "age": 5,
+      "typical_chest_pain": 5,
+      "region_rwma": 5,
+      "ef_tte": 3,
+      "vhd": 2,
+      "tg": 2,
+      "diabetes": 1,
+      "dyspnea": 1,
+      "t_inversion": 1
+    },
+    "folds": 5,
+    "verdict": "stable"
+  },
+  "LAD": {
+    "spearman_mean": 0.915,
+    "spearman_min": 0.899,
+    "top5_jaccard_mean": 1.0,
+    "top5_frequency": {
+      "age": 5,
+      "typical_chest_pain": 5,
+      "atypical_chest_pain": 5,
+      "region_rwma": 5,
+      "ef_tte": 5
+    },
+    "folds": 5,
+    "verdict": "stable"
+  },
+  "LCX": {
+    "spearman_mean": 0.921,
+    "spearman_min": 0.898,
+    "top5_jaccard_mean": 0.452,
+    "top5_frequency": {
+      "age": 5,
+      "typical_chest_pain": 5,
+      "plt": 4,
+      "tg": 3,
+      "creatinine": 2,
+      "bp": 1,
+      "hypertension": 1,
+      "neut": 1,
+      "ef_tte": 1,
+      "fbs": 1,
+      "bmi": 1
+    },
+    "folds": 5,
+    "verdict": "stable"
+  },
+  "RCA": {
+    "spearman_mean": 0.776,
+    "spearman_min": 0.66,
+    "top5_jaccard_mean": 0.5,
+    "top5_frequency": {
+      "dyspnea": 5,
+      "diabetes": 5,
+      "age": 4,
+      "function_class": 3,
+      "tg": 2,
+      "neut": 2,
+      "sex_male": 2,
+      "atypical_chest_pain": 2
+    },
+    "folds": 5,
+    "verdict": "stable"
+  }
+}

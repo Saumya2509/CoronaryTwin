@@ -1,0 +1,2 @@
+patient_id,age,sex_male,typical_chest_pain,diabetes,hypertension,bp,ldl,hdl,fbs,ef_tte
+S31,58,1,1,0,0,120,145,36,100,55

@@ -1,0 +1,199 @@
+# CoronaryTwin feature registry: the single source of truth for model inputs.
+#
+# Drives: preprocessing (src/data.py), the leakage guard, API validation, the input
+# form, SHAP grouping, what-if sliders and patient-view wording.
+#
+# Fields
+#   name          canonical key used everywhere after loading (model, API, UI)
+#   source        column name in the raw UCI file
+#   type          numeric | binary | ordinal | categorical
+#   encoding      raw value -> model value (binary / ordinal / categorical sources)
+#   group         SHAP group; must be listed in config/settings.yaml feature_groups
+#   valid_range   hard bounds for API validation (wider than the data, physiologically plausible)
+#   normal_range  adult reference range for below/within/above labels; null = not applicable
+#   modifiable    true = gets a what-if slider (model sensitivity, not advice)
+#   step          slider / input step for numeric features
+#
+# Dataset: Extension of Z-Alizadeh Sani (UCI id 411), 303 patients, no missing values.
+
+dataset:
+  uci_id: 411
+  url: https://archive.ics.uci.edu/static/public/411/extention+of+z+alizadeh+sani+dataset.zip
+  file: extention of Z-Alizadeh sani dataset.xlsx
+  doi: 10.24432/C5461K
+
+targets:
+  - {name: CAD, source: Cath, positive: CAD}
+  - {name: LAD, source: LAD, positive: Stenotic}
+  - {name: LCX, source: LCX, positive: Stenotic}
+  - {name: RCA, source: RCA, positive: Stenotic}
+
+# Raw columns deliberately not used as inputs, with the reason. The leakage guard
+# also blocks every target source column independently of this list.
+excluded:
+  - {source: Cath, reason: "Target: overall CAD label from catheterization."}
+  - {source: LAD, reason: "Target: LAD stenosis label."}
+  - {source: LCX, reason: "Target: LCX stenosis label."}
+  - {source: RCA, reason: "Target: RCA stenosis label."}
+  - {source: Weight, reason: "Redundant: BMI is computed exactly from Weight and Length (max error 0.0)."}
+  - {source: Length, reason: "Redundant: height, used only to compute BMI."}
+  - {source: Obesity, reason: "Redundant: equals BMI > 25 in 302 of 303 rows."}
+  - {source: Exertional CP, reason: "Constant: every patient has the value N."}
+
+features:
+  # ---------------- Demographics ----------------
+  - name: age
+    source: Age
+    label: Age
+    unit: years
+    type: numeric
+    group: Demographics
+    valid_range: [18, 110]
+    normal_range: null
+    modifiable: false
+    step: 1
+    patient_text: "Your age"
+  - name: sex_male
+    source: Sex
+    label: Sex (male)
+    type: binary
+    encoding: {Male: 1, Fmale: 0}
+    group: Demographics
+    modifiable: false
+    patient_text: "Your sex"
+  - name: bmi
+    source: BMI
+    label: Body mass index
+    unit: kg/m²
+    type: numeric
+    group: Demographics
+    valid_range: [10, 70]
+    normal_range: [18.5, 25]
+    modifiable: true
+    step: 0.5
+    patient_text: "Your body weight for your height"
+
+  # ---------------- History ----------------
+  - {name: diabetes, source: DM, label: Diabetes mellitus, type: binary, group: History, modifiable: false, patient_text: "Diabetes"}
+  - {name: hypertension, source: HTN, label: Hypertension, type: binary, group: History, modifiable: false, patient_text: "High blood pressure diagnosis"}
+  - {name: current_smoker, source: Current Smoker, label: Current smoker, type: binary, group: History, modifiable: true, patient_text: "Smoking now"}
+  - {name: ex_smoker, source: EX-Smoker, label: Ex-smoker, type: binary, group: History, modifiable: false, patient_text: "Smoking in the past"}
+  - {name: family_history, source: FH, label: Family history of CAD, type: binary, group: History, modifiable: false, patient_text: "Heart disease in your family"}
+  - {name: chronic_renal_failure, source: CRF, label: Chronic renal failure, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Long-term kidney disease"}
+  - {name: cva, source: CVA, label: Cerebrovascular accident, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Previous stroke"}
+  - {name: airway_disease, source: Airway disease, label: Airway disease, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Lung airway disease"}
+  - {name: thyroid_disease, source: Thyroid Disease, label: Thyroid disease, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Thyroid disease"}
+  - {name: chf, source: CHF, label: Congestive heart failure, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Heart failure"}
+  - {name: dyslipidemia, source: DLP, label: Dyslipidemia, type: binary, encoding: {Y: 1, N: 0}, group: History, modifiable: false, patient_text: "Abnormal blood fats diagnosis"}
+
+  # ---------------- Vitals & examination ----------------
+  - name: bp
+    source: BP
+    label: Blood pressure (systolic)
+    unit: mmHg
+    type: numeric
+    group: Vitals
+    valid_range: [60, 260]
+    normal_range: [90, 120]
+    modifiable: true
+    step: 5
+    patient_text: "Your blood pressure"
+  - name: pulse_rate
+    source: PR
+    label: Pulse rate
+    unit: bpm
+    type: numeric
+    group: Vitals
+    valid_range: [30, 200]
+    normal_range: [60, 100]
+    modifiable: false
+    step: 1
+    patient_text: "Your pulse"
+  - {name: edema, source: Edema, label: Edema, type: binary, group: Vitals, modifiable: false, patient_text: "Swelling (edema)"}
+  - {name: weak_peripheral_pulse, source: Weak Peripheral Pulse, label: Weak peripheral pulse, type: binary, encoding: {Y: 1, N: 0}, group: Vitals, modifiable: false, patient_text: "Weak pulse in the limbs"}
+  - {name: lung_rales, source: Lung rales, label: Lung rales, type: binary, encoding: {Y: 1, N: 0}, group: Vitals, modifiable: false, patient_text: "Crackling sounds in the lungs"}
+  - {name: systolic_murmur, source: Systolic Murmur, label: Systolic murmur, type: binary, encoding: {Y: 1, N: 0}, group: Vitals, modifiable: false, patient_text: "A heart murmur"}
+  - {name: diastolic_murmur, source: Diastolic Murmur, label: Diastolic murmur, type: binary, encoding: {Y: 1, N: 0}, group: Vitals, modifiable: false, patient_text: "A heart murmur"}
+
+  # ---------------- Symptoms ----------------
+  - {name: typical_chest_pain, source: Typical Chest Pain, label: Typical chest pain, type: binary, group: Symptoms, modifiable: false, patient_text: "Chest pain typical of heart problems"}
+  - {name: atypical_chest_pain, source: Atypical, label: Atypical chest pain, type: binary, encoding: {Y: 1, N: 0}, group: Symptoms, modifiable: false, patient_text: "Chest pain not typical of heart problems"}
+  - {name: nonanginal_chest_pain, source: Nonanginal, label: Non-anginal chest pain, type: binary, encoding: {Y: 1, N: 0}, group: Symptoms, modifiable: false, patient_text: "Chest pain unlikely to come from the heart"}
+  - {name: low_threshold_angina, source: LowTH Ang, label: Low-threshold angina, type: binary, encoding: {Y: 1, N: 0}, group: Symptoms, modifiable: false, patient_text: "Chest pain with light effort"}
+  - {name: dyspnea, source: Dyspnea, label: Dyspnea, type: binary, encoding: {Y: 1, N: 0}, group: Symptoms, modifiable: false, patient_text: "Shortness of breath"}
+  - name: function_class
+    source: Function Class
+    label: Functional class
+    type: ordinal
+    group: Symptoms
+    valid_range: [0, 3]
+    normal_range: null
+    modifiable: false
+    step: 1
+    patient_text: "How much activity brings on symptoms"
+
+  # ---------------- ECG ----------------
+  - {name: q_wave, source: Q Wave, label: Q wave, type: binary, group: ECG, modifiable: false, patient_text: "A finding on your heart tracing (Q wave)"}
+  - {name: st_elevation, source: St Elevation, label: ST elevation, type: binary, group: ECG, modifiable: false, patient_text: "A finding on your heart tracing (ST elevation)"}
+  - {name: st_depression, source: St Depression, label: ST depression, type: binary, group: ECG, modifiable: false, patient_text: "A finding on your heart tracing (ST depression)"}
+  - {name: t_inversion, source: Tinversion, label: T-wave inversion, type: binary, group: ECG, modifiable: false, patient_text: "A finding on your heart tracing (T wave)"}
+  - {name: lvh, source: LVH, label: Left ventricular hypertrophy, type: binary, encoding: {Y: 1, N: 0}, group: ECG, modifiable: false, patient_text: "Thickened heart muscle on your tracing"}
+  - {name: poor_r_progression, source: Poor R Progression, label: Poor R-wave progression, type: binary, encoding: {Y: 1, N: 0}, group: ECG, modifiable: false, patient_text: "A finding on your heart tracing (R wave)"}
+  - name: bbb
+    source: BBB
+    label: Bundle branch block
+    type: categorical
+    encoding: {N: none, LBBB: left, RBBB: right}
+    group: ECG
+    modifiable: false
+    patient_text: "An electrical conduction finding on your heart tracing"
+
+  # ---------------- Labs ----------------
+  - {name: fbs, source: FBS, label: Fasting blood sugar, unit: mg/dL, type: numeric, group: Labs, valid_range: [30, 600], normal_range: [70, 100], modifiable: true, step: 5, patient_text: "Your fasting blood sugar"}
+  - {name: creatinine, source: CR, label: Creatinine, unit: mg/dL, type: numeric, group: Labs, valid_range: [0.2, 15], normal_range: [0.6, 1.2], modifiable: false, step: 0.1, patient_text: "Your kidney function test"}
+  - {name: tg, source: TG, label: Triglycerides, unit: mg/dL, type: numeric, group: Labs, valid_range: [10, 3000], normal_range: [0, 150], modifiable: true, step: 10, patient_text: "Your triglycerides (blood fats)"}
+  - {name: ldl, source: LDL, label: LDL cholesterol, unit: mg/dL, type: numeric, group: Labs, valid_range: [5, 400], normal_range: [0, 100], modifiable: true, step: 5, patient_text: "Your LDL ('bad') cholesterol"}
+  - {name: hdl, source: HDL, label: HDL cholesterol, unit: mg/dL, type: numeric, group: Labs, valid_range: [5, 150], normal_range: [40, null], modifiable: true, step: 1, patient_text: "Your HDL ('good') cholesterol"}
+  - {name: bun, source: BUN, label: Blood urea nitrogen, unit: mg/dL, type: numeric, group: Labs, valid_range: [2, 150], normal_range: [7, 20], modifiable: false, step: 1, patient_text: "Your kidney waste level (BUN)"}
+  - {name: esr, source: ESR, label: Erythrocyte sedimentation rate, unit: mm/h, type: numeric, group: Labs, valid_range: [0, 150], normal_range: [0, 20], modifiable: false, step: 1, patient_text: "Your inflammation marker (ESR)"}
+  - {name: hb, source: HB, label: Hemoglobin, unit: g/dL, type: numeric, group: Labs, valid_range: [4, 22], normal_range: [12, 17.5], modifiable: false, step: 0.1, patient_text: "Your hemoglobin"}
+  - {name: k, source: K, label: Potassium, unit: mEq/L, type: numeric, group: Labs, valid_range: [2, 8], normal_range: [3.5, 5.0], modifiable: false, step: 0.1, patient_text: "Your potassium level"}
+  - {name: na, source: Na, label: Sodium, unit: mEq/L, type: numeric, group: Labs, valid_range: [110, 170], normal_range: [135, 145], modifiable: false, step: 1, patient_text: "Your sodium level"}
+  - {name: wbc, source: WBC, label: White blood cells, unit: cells/µL, type: numeric, group: Labs, valid_range: [1000, 50000], normal_range: [4000, 11000], modifiable: false, step: 100, patient_text: "Your white blood cell count"}
+  - {name: lymph, source: Lymph, label: Lymphocytes, unit: "%", type: numeric, group: Labs, valid_range: [0, 100], normal_range: [20, 40], modifiable: false, step: 1, patient_text: "Your lymphocyte share"}
+  - {name: neut, source: Neut, label: Neutrophils, unit: "%", type: numeric, group: Labs, valid_range: [0, 100], normal_range: [40, 70], modifiable: false, step: 1, patient_text: "Your neutrophil share"}
+  - {name: plt, source: PLT, label: Platelets, unit: "×1000/µL", type: numeric, group: Labs, valid_range: [10, 1500], normal_range: [150, 450], modifiable: false, step: 5, patient_text: "Your platelet count"}
+
+  # ---------------- Echo ----------------
+  - name: ef_tte
+    source: EF-TTE
+    label: Ejection fraction (TTE)
+    unit: "%"
+    type: numeric
+    group: Echo
+    valid_range: [5, 80]
+    normal_range: [50, 70]
+    modifiable: false
+    step: 5
+    patient_text: "How strongly your heart pumps"
+  - name: region_rwma
+    source: Region RWMA
+    label: Regions with wall-motion abnormality
+    type: ordinal
+    group: Echo
+    valid_range: [0, 4]
+    normal_range: null
+    modifiable: false
+    step: 1
+    patient_text: "Areas of heart wall that move less well on ultrasound"
+  - name: vhd
+    source: VHD
+    label: Valvular heart disease
+    type: ordinal
+    encoding: {N: 0, mild: 1, Moderate: 2, Severe: 3}
+    group: Echo
+    valid_range: [0, 3]
+    normal_range: null
+    modifiable: false
+    step: 1
+    patient_text: "A heart valve problem"

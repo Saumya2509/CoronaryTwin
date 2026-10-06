@@ -1,0 +1,32 @@
+{
+  "version": "2026-10-01",
+  "created": "2026-10-01T18:00:29+00:00",
+  "alpha": 0.1,
+  "feature_manifest": "feature_manifest.json",
+  "targets": {
+    "CAD": {
+      "path": "models/cad.joblib",
+      "family": "logreg",
+      "threshold": 0.65,
+      "qhat": 0.609
+    },
+    "LAD": {
+      "path": "models/lad.joblib",
+      "family": "rf",
+      "threshold": 0.5,
+      "qhat": 0.703
+    },
+    "LCX": {
+      "path": "models/lcx.joblib",
+      "family": "rf",
+      "threshold": 0.29,
+      "qhat": 0.683
+    },
+    "RCA": {
+      "path": "models/rca.joblib",
+      "family": "logreg",
+      "threshold": 0.28,
+      "qhat": 0.685
+    }
+  }
+}

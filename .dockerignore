@@ -1,0 +1,17 @@
+.venv
+**/__pycache__
+.pytest_cache
+.git
+data
+notebooks
+docs
+md
+tests
+web/*
+!web/src
+web/src/*
+!web/src/anatomy.json
+artifacts/oof
+*.log
+*.err
+brag

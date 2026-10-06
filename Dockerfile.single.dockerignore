@@ -1,0 +1,20 @@
+# Used by Dockerfile.single (BuildKit reads <Dockerfile>.dockerignore). Like .dockerignore, but the
+# web app is needed for the build stage.
+.venv
+**/__pycache__
+.pytest_cache
+.git
+.claude
+data
+notebooks
+docs
+md
+tests
+web/node_modules
+web/dist
+web/test-results
+web/playwright-report
+artifacts/oof
+*.log
+*.err
+brag

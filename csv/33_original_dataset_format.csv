@@ -1,0 +1,2 @@
+patient_id,Age,Sex,BMI,DM,HTN,Current Smoker,EX-Smoker,FH,CRF,CVA,Airway disease,Thyroid Disease,CHF,DLP,BP,PR,Edema,Weak Peripheral Pulse,Lung rales,Systolic Murmur,Diastolic Murmur,Typical Chest Pain,Atypical,Nonanginal,LowTH Ang,Dyspnea,Function Class,Q Wave,St Elevation,St Depression,Tinversion,LVH,Poor R Progression,BBB,FBS,CR,TG,LDL,HDL,BUN,ESR,HB,K,Na,WBC,Lymph,Neut,PLT,EF-TTE,Region RWMA,VHD
+S33,58,Male,27.9,0,0,1,0,0,N,N,N,N,N,N,120,76,0,N,N,N,N,1,N,N,N,N,1,0,0,0,0,N,N,N,100,1.0,120,145,36,16,15,14.0,4.3,140,7100,32,60,210,55,0,N

@@ -1,0 +1,23 @@
+# One container for one-service hosts: website at /, API at /api (app/single.py).
+#   docker build -f Dockerfile.single -t coronarytwin .
+#   docker run -p 7860:7860 coronarytwin        ->  http://localhost:7860
+# Hugging Face Spaces (Docker SDK) expects port 7860; Render/Fly set $PORT, which is honored.
+FROM node:24-alpine AS web
+WORKDIR /src/web
+COPY web/package.json web/package-lock.json ./
+RUN npm ci --no-audit --no-fund
+COPY web/ ./
+COPY fixtures/ /src/fixtures/
+RUN npm run build
+
+FROM python:3.13-slim
+WORKDIR /srv
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PORT=7860
+# libgl1 / libglib2.0-0: OpenCV, used by the on-device OCR for report reading
+RUN apt-get update && apt-get install -y --no-install-recommends libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+COPY --from=web /src/web/dist /srv/web/dist
+EXPOSE 7860
+CMD ["sh", "-c", "uvicorn app.single:app --host 0.0.0.0 --port ${PORT}"]

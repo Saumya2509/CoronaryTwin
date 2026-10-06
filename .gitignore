@@ -1,0 +1,37 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Raw and processed data are fetched by script, not committed.
+data/raw/*
+data/processed/*
+!data/**/.gitkeep
+
+# Frontend
+web/node_modules/
+web/dist/
+
+.env
+.DS_Store
+
+# Training logs (weights, manifests and metrics ARE committed)
+artifacts/*.log
+artifacts/*.err
+
+# Playwright (end-to-end test output)
+web/test-results/
+web/playwright-report/
+
+# Local Claude Code skills and settings: personal tooling, not part of the project
+.claude/
+
+
+# Not published: demo-video kit, internal module specs, local agent tooling, runtime database
+brag/
+md/
+.agents/
+skills-lock.json
+data/*.db
+.env.*

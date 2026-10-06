@@ -1,0 +1,1166 @@
+{
+  "groups": [
+    "Demographics",
+    "History",
+    "Symptoms",
+    "Vitals",
+    "Labs",
+    "ECG",
+    "Echo"
+  ],
+  "modifiable": [
+    "bmi",
+    "current_smoker",
+    "bp",
+    "fbs",
+    "tg",
+    "ldl",
+    "hdl"
+  ],
+  "features": [
+    {
+      "name": "age",
+      "source": "Age",
+      "label": "Age",
+      "unit": "years",
+      "type": "numeric",
+      "group": "Demographics",
+      "valid_range": [
+        18,
+        110
+      ],
+      "normal_range": null,
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your age",
+      "stats": {
+        "min": 30.0,
+        "max": 86.0,
+        "median": 58.0,
+        "std": 10.39227750453444,
+        "p01": 38.0,
+        "p99": 81.0
+      }
+    },
+    {
+      "name": "sex_male",
+      "source": "Sex",
+      "label": "Sex (male)",
+      "type": "binary",
+      "encoding": {
+        "Male": 1,
+        "Fmale": 0
+      },
+      "group": "Demographics",
+      "modifiable": false,
+      "patient_text": "Your sex",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 1.0,
+        "std": 0.49423489903366175,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "bmi",
+      "source": "BMI",
+      "label": "Body mass index",
+      "unit": "kg/m\u00b2",
+      "type": "numeric",
+      "group": "Demographics",
+      "valid_range": [
+        10,
+        70
+      ],
+      "normal_range": [
+        18.5,
+        25
+      ],
+      "modifiable": true,
+      "step": 0.5,
+      "patient_text": "Your body weight for your height",
+      "stats": {
+        "min": 18.115412710007305,
+        "max": 40.90065778377467,
+        "median": 26.775510204081638,
+        "std": 4.098865084776586,
+        "p01": 18.940622837370242,
+        "p99": 37.36614122773293
+      }
+    },
+    {
+      "name": "diabetes",
+      "source": "DM",
+      "label": "Diabetes mellitus",
+      "type": "binary",
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Diabetes",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4577056470917884,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "hypertension",
+      "source": "HTN",
+      "label": "Hypertension",
+      "type": "binary",
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "High blood pressure diagnosis",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 1.0,
+        "std": 0.49250718693294226,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "current_smoker",
+      "source": "Current Smoker",
+      "label": "Current smoker",
+      "type": "binary",
+      "group": "History",
+      "modifiable": true,
+      "patient_text": "Smoking now",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4064911641758194,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "ex_smoker",
+      "source": "EX-Smoker",
+      "label": "Ex-smoker",
+      "type": "binary",
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Smoking in the past",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.17894065571361206,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "family_history",
+      "source": "FH",
+      "label": "Family history of CAD",
+      "type": "binary",
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Heart disease in your family",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.3657344946035515,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "chronic_renal_failure",
+      "source": "CRF",
+      "label": "Chronic renal failure",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Long-term kidney disease",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.1395497504252442,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "cva",
+      "source": "CVA",
+      "label": "Cerebrovascular accident",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Previous stroke",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.12760519292790792,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "airway_disease",
+      "source": "Airway disease",
+      "label": "Airway disease",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Lung airway disease",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.18735400555465276,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "thyroid_disease",
+      "source": "Thyroid Disease",
+      "label": "Thyroid disease",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Thyroid disease",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.15047698805811643,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "chf",
+      "source": "CHF",
+      "label": "Congestive heart failure",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Heart failure",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.0574484989621426,
+        "p01": 0.0,
+        "p99": 0.0
+      }
+    },
+    {
+      "name": "dyslipidemia",
+      "source": "DLP",
+      "label": "Dyslipidemia",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "History",
+      "modifiable": false,
+      "patient_text": "Abnormal blood fats diagnosis",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4835049328456893,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "bp",
+      "source": "BP",
+      "label": "Blood pressure (systolic)",
+      "unit": "mmHg",
+      "type": "numeric",
+      "group": "Vitals",
+      "valid_range": [
+        60,
+        260
+      ],
+      "normal_range": [
+        90,
+        120
+      ],
+      "modifiable": true,
+      "step": 5,
+      "patient_text": "Your blood pressure",
+      "stats": {
+        "min": 90.0,
+        "max": 190.0,
+        "median": 130.0,
+        "std": 18.938105135143886,
+        "p01": 90.2,
+        "p99": 180.0
+      }
+    },
+    {
+      "name": "pulse_rate",
+      "source": "PR",
+      "label": "Pulse rate",
+      "unit": "bpm",
+      "type": "numeric",
+      "group": "Vitals",
+      "valid_range": [
+        30,
+        200
+      ],
+      "normal_range": [
+        60,
+        100
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your pulse",
+      "stats": {
+        "min": 50.0,
+        "max": 110.0,
+        "median": 70.0,
+        "std": 8.91180066124266,
+        "p01": 60.0,
+        "p99": 100.0
+      }
+    },
+    {
+      "name": "edema",
+      "source": "Edema",
+      "label": "Edema",
+      "type": "binary",
+      "group": "Vitals",
+      "modifiable": false,
+      "patient_text": "Swelling (edema)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.19534951250833327,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "weak_peripheral_pulse",
+      "source": "Weak Peripheral Pulse",
+      "label": "Weak peripheral pulse",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Vitals",
+      "modifiable": false,
+      "patient_text": "Weak pulse in the limbs",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.12760519292790795,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "lung_rales",
+      "source": "Lung rales",
+      "label": "Lung rales",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Vitals",
+      "modifiable": false,
+      "patient_text": "Crackling sounds in the lungs",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.18735400555465273,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "systolic_murmur",
+      "source": "Systolic Murmur",
+      "label": "Systolic murmur",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Vitals",
+      "modifiable": false,
+      "patient_text": "A heart murmur",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.34262400575500757,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "diastolic_murmur",
+      "source": "Diastolic Murmur",
+      "label": "Diastolic murmur",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Vitals",
+      "modifiable": false,
+      "patient_text": "A heart murmur",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.17004745410260413,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "typical_chest_pain",
+      "source": "Typical Chest Pain",
+      "label": "Typical chest pain",
+      "type": "binary",
+      "group": "Symptoms",
+      "modifiable": false,
+      "patient_text": "Chest pain typical of heart problems",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 1.0,
+        "std": 0.4991195009875263,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "atypical_chest_pain",
+      "source": "Atypical",
+      "label": "Atypical chest pain",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Symptoms",
+      "modifiable": false,
+      "patient_text": "Chest pain not typical of heart problems",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.46198336293742764,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "nonanginal_chest_pain",
+      "source": "Nonanginal",
+      "label": "Non-anginal chest pain",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Symptoms",
+      "modifiable": false,
+      "patient_text": "Chest pain unlikely to come from the heart",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.22401451223944846,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "low_threshold_angina",
+      "source": "LowTH Ang",
+      "label": "Low-threshold angina",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Symptoms",
+      "modifiable": false,
+      "patient_text": "Chest pain with light effort",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.08110982416280911,
+        "p01": 0.0,
+        "p99": 0.0
+      }
+    },
+    {
+      "name": "dyspnea",
+      "source": "Dyspnea",
+      "label": "Dyspnea",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "Symptoms",
+      "modifiable": false,
+      "patient_text": "Shortness of breath",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4974746621634894,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "function_class",
+      "source": "Function Class",
+      "label": "Functional class",
+      "type": "ordinal",
+      "group": "Symptoms",
+      "valid_range": [
+        0,
+        3
+      ],
+      "normal_range": null,
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "How much activity brings on symptoms",
+      "stats": {
+        "min": 0.0,
+        "max": 3.0,
+        "median": 0.0,
+        "std": 1.0320419005827184,
+        "p01": 0.0,
+        "p99": 3.0
+      }
+    },
+    {
+      "name": "q_wave",
+      "source": "Q Wave",
+      "label": "Q wave",
+      "type": "binary",
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "A finding on your heart tracing (Q wave)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.22401451223944846,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "st_elevation",
+      "source": "St Elevation",
+      "label": "ST elevation",
+      "type": "binary",
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "A finding on your heart tracing (ST elevation)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.2102752478208748,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "st_depression",
+      "source": "St Depression",
+      "label": "ST depression",
+      "type": "binary",
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "A finding on your heart tracing (ST depression)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4242759172820571,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "t_inversion",
+      "source": "Tinversion",
+      "label": "T-wave inversion",
+      "type": "binary",
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "A finding on your heart tracing (T wave)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.4577056470917884,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "lvh",
+      "source": "LVH",
+      "label": "Left ventricular hypertrophy",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "Thickened heart muscle on your tracing",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.24870437773781925,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "poor_r_progression",
+      "source": "Poor R Progression",
+      "label": "Poor R-wave progression",
+      "type": "binary",
+      "encoding": {
+        "Y": 1,
+        "N": 0
+      },
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "A finding on your heart tracing (R wave)",
+      "stats": {
+        "min": 0.0,
+        "max": 1.0,
+        "median": 0.0,
+        "std": 0.17004745410260413,
+        "p01": 0.0,
+        "p99": 1.0
+      }
+    },
+    {
+      "name": "bbb",
+      "source": "BBB",
+      "label": "Bundle branch block",
+      "type": "categorical",
+      "encoding": {
+        "N": "none",
+        "LBBB": "left",
+        "RBBB": "right"
+      },
+      "group": "ECG",
+      "modifiable": false,
+      "patient_text": "An electrical conduction finding on your heart tracing",
+      "stats": null
+    },
+    {
+      "name": "fbs",
+      "source": "FBS",
+      "label": "Fasting blood sugar",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        30,
+        600
+      ],
+      "normal_range": [
+        70,
+        100
+      ],
+      "modifiable": true,
+      "step": 5,
+      "patient_text": "Your fasting blood sugar",
+      "stats": {
+        "min": 62.0,
+        "max": 400.0,
+        "median": 98.0,
+        "std": 52.07965276703074,
+        "p01": 70.0,
+        "p99": 319.60000000000036
+      }
+    },
+    {
+      "name": "creatinine",
+      "source": "CR",
+      "label": "Creatinine",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        0.2,
+        15
+      ],
+      "normal_range": [
+        0.6,
+        1.2
+      ],
+      "modifiable": false,
+      "step": 0.1,
+      "patient_text": "Your kidney function test",
+      "stats": {
+        "min": 0.5,
+        "max": 2.2,
+        "median": 1.0,
+        "std": 0.264296279451307,
+        "p01": 0.6,
+        "p99": 1.9
+      }
+    },
+    {
+      "name": "tg",
+      "source": "TG",
+      "label": "Triglycerides",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        10,
+        3000
+      ],
+      "normal_range": [
+        0,
+        150
+      ],
+      "modifiable": true,
+      "step": 10,
+      "patient_text": "Your triglycerides (blood fats)",
+      "stats": {
+        "min": 37.0,
+        "max": 1050.0,
+        "median": 122.0,
+        "std": 97.95945072085185,
+        "p01": 46.08,
+        "p99": 449.94000000000005
+      }
+    },
+    {
+      "name": "ldl",
+      "source": "LDL",
+      "label": "LDL cholesterol",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        5,
+        400
+      ],
+      "normal_range": [
+        0,
+        100
+      ],
+      "modifiable": true,
+      "step": 5,
+      "patient_text": "Your LDL ('bad') cholesterol",
+      "stats": {
+        "min": 18.0,
+        "max": 232.0,
+        "median": 100.0,
+        "std": 35.39668788292359,
+        "p01": 36.06,
+        "p99": 202.92000000000007
+      }
+    },
+    {
+      "name": "hdl",
+      "source": "HDL",
+      "label": "HDL cholesterol",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        5,
+        150
+      ],
+      "normal_range": [
+        40,
+        null
+      ],
+      "modifiable": true,
+      "step": 1,
+      "patient_text": "Your HDL ('good') cholesterol",
+      "stats": {
+        "min": 15.9,
+        "max": 111.0,
+        "median": 39.0,
+        "std": 10.55907692571349,
+        "p01": 22.0,
+        "p99": 66.98000000000002
+      }
+    },
+    {
+      "name": "bun",
+      "source": "BUN",
+      "label": "Blood urea nitrogen",
+      "unit": "mg/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        2,
+        150
+      ],
+      "normal_range": [
+        7,
+        20
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your kidney waste level (BUN)",
+      "stats": {
+        "min": 6.0,
+        "max": 52.0,
+        "median": 16.0,
+        "std": 6.956760772568413,
+        "p01": 8.0,
+        "p99": 40.98000000000002
+      }
+    },
+    {
+      "name": "esr",
+      "source": "ESR",
+      "label": "Erythrocyte sedimentation rate",
+      "unit": "mm/h",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        0,
+        150
+      ],
+      "normal_range": [
+        0,
+        20
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your inflammation marker (ESR)",
+      "stats": {
+        "min": 1.0,
+        "max": 90.0,
+        "median": 15.0,
+        "std": 15.936475044964782,
+        "p01": 2.0,
+        "p99": 75.86000000000013
+      }
+    },
+    {
+      "name": "hb",
+      "source": "HB",
+      "label": "Hemoglobin",
+      "unit": "g/dL",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        4,
+        22
+      ],
+      "normal_range": [
+        12,
+        17.5
+      ],
+      "modifiable": false,
+      "step": 0.1,
+      "patient_text": "Your hemoglobin",
+      "stats": {
+        "min": 8.9,
+        "max": 17.6,
+        "median": 13.2,
+        "std": 1.6104520583998867,
+        "p01": 9.0,
+        "p99": 16.992000000000008
+      }
+    },
+    {
+      "name": "k",
+      "source": "K",
+      "label": "Potassium",
+      "unit": "mEq/L",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        2,
+        8
+      ],
+      "normal_range": [
+        3.5,
+        5.0
+      ],
+      "modifiable": false,
+      "step": 0.1,
+      "patient_text": "Your potassium level",
+      "stats": {
+        "min": 3.0,
+        "max": 6.6,
+        "median": 4.2,
+        "std": 0.4582017632143438,
+        "p01": 3.2,
+        "p99": 5.4
+      }
+    },
+    {
+      "name": "na",
+      "source": "Na",
+      "label": "Sodium",
+      "unit": "mEq/L",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        110,
+        170
+      ],
+      "normal_range": [
+        135,
+        145
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your sodium level",
+      "stats": {
+        "min": 128.0,
+        "max": 156.0,
+        "median": 141.0,
+        "std": 3.807885117982797,
+        "p01": 131.0,
+        "p99": 152.98000000000002
+      }
+    },
+    {
+      "name": "wbc",
+      "source": "WBC",
+      "label": "White blood cells",
+      "unit": "cells/\u00b5L",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        1000,
+        50000
+      ],
+      "normal_range": [
+        4000,
+        11000
+      ],
+      "modifiable": false,
+      "step": 100,
+      "patient_text": "Your white blood cell count",
+      "stats": {
+        "min": 3700.0,
+        "max": 18000.0,
+        "median": 7100.0,
+        "std": 2413.739323339799,
+        "p01": 4100.0,
+        "p99": 15988.000000000011
+      }
+    },
+    {
+      "name": "lymph",
+      "source": "Lymph",
+      "label": "Lymphocytes",
+      "unit": "%",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        0,
+        100
+      ],
+      "normal_range": [
+        20,
+        40
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your lymphocyte share",
+      "stats": {
+        "min": 7.0,
+        "max": 60.0,
+        "median": 32.0,
+        "std": 9.972591556076441,
+        "p01": 10.0,
+        "p99": 57.940000000000055
+      }
+    },
+    {
+      "name": "neut",
+      "source": "Neut",
+      "label": "Neutrophils",
+      "unit": "%",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        0,
+        100
+      ],
+      "normal_range": [
+        40,
+        70
+      ],
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Your neutrophil share",
+      "stats": {
+        "min": 32.0,
+        "max": 89.0,
+        "median": 60.0,
+        "std": 10.182493226947498,
+        "p01": 38.02,
+        "p99": 83.98000000000002
+      }
+    },
+    {
+      "name": "plt",
+      "source": "PLT",
+      "label": "Platelets",
+      "unit": "\u00d71000/\u00b5L",
+      "type": "numeric",
+      "group": "Labs",
+      "valid_range": [
+        10,
+        1500
+      ],
+      "normal_range": [
+        150,
+        450
+      ],
+      "modifiable": false,
+      "step": 5,
+      "patient_text": "Your platelet count",
+      "stats": {
+        "min": 25.0,
+        "max": 742.0,
+        "median": 210.0,
+        "std": 60.79619927480209,
+        "p01": 129.04,
+        "p99": 380.0
+      }
+    },
+    {
+      "name": "ef_tte",
+      "source": "EF-TTE",
+      "label": "Ejection fraction (TTE)",
+      "unit": "%",
+      "type": "numeric",
+      "group": "Echo",
+      "valid_range": [
+        5,
+        80
+      ],
+      "normal_range": [
+        50,
+        70
+      ],
+      "modifiable": false,
+      "step": 5,
+      "patient_text": "How strongly your heart pumps",
+      "stats": {
+        "min": 15.0,
+        "max": 60.0,
+        "median": 50.0,
+        "std": 8.927194182365653,
+        "p01": 20.0,
+        "p99": 60.0
+      }
+    },
+    {
+      "name": "region_rwma",
+      "source": "Region RWMA",
+      "label": "Regions with wall-motion abnormality",
+      "type": "ordinal",
+      "group": "Echo",
+      "valid_range": [
+        0,
+        4
+      ],
+      "normal_range": null,
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "Areas of heart wall that move less well on ultrasound",
+      "stats": {
+        "min": 0.0,
+        "max": 4.0,
+        "median": 0.0,
+        "std": 1.1325309160780648,
+        "p01": 0.0,
+        "p99": 4.0
+      }
+    },
+    {
+      "name": "vhd",
+      "source": "VHD",
+      "label": "Valvular heart disease",
+      "type": "ordinal",
+      "encoding": {
+        "N": 0,
+        "mild": 1,
+        "Moderate": 2,
+        "Severe": 3
+      },
+      "group": "Echo",
+      "valid_range": [
+        0,
+        3
+      ],
+      "normal_range": null,
+      "modifiable": false,
+      "step": 1,
+      "patient_text": "A heart valve problem",
+      "stats": {
+        "min": 0.0,
+        "max": 3.0,
+        "median": 1.0,
+        "std": 0.7550817211196638,
+        "p01": 0.0,
+        "p99": 3.0
+      }
+    }
+  ]
+}

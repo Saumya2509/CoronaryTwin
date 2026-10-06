@@ -1,0 +1,1775 @@
+{
+  "version": "2026-10-01",
+  "created": "2026-10-02T14:14:37+00:00",
+  "mode": "full",
+  "targets": {
+    "CAD": {
+      "selected": "logreg",
+      "comparison": {
+        "logreg": {
+          "label": "Logistic regression",
+          "auc": 0.9259,
+          "delta_vs_selected": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "p_better": 0.0,
+          "selected": true
+        },
+        "rf": {
+          "label": "Random forest",
+          "auc": 0.9256,
+          "delta_vs_selected": -0.0004,
+          "ci95": [
+            -0.0169,
+            0.0165
+          ],
+          "p_better": 0.48,
+          "selected": false
+        },
+        "xgb": {
+          "label": "XGBoost",
+          "auc": 0.9115,
+          "delta_vs_selected": -0.0145,
+          "ci95": [
+            -0.0345,
+            0.0054
+          ],
+          "p_better": 0.076,
+          "selected": false
+        },
+        "lgbm": {
+          "label": "LightGBM",
+          "auc": 0.9169,
+          "delta_vs_selected": -0.009,
+          "ci95": [
+            -0.0267,
+            0.0095
+          ],
+          "p_better": 0.16,
+          "selected": false
+        }
+      },
+      "decision": {
+        "thresholds": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7,
+          0.75,
+          0.8,
+          0.85,
+          0.9,
+          0.95
+        ],
+        "model": [
+          0.6978,
+          0.6824,
+          0.6674,
+          0.6526,
+          0.6348,
+          0.6219,
+          0.6118,
+          0.6106,
+          0.5923,
+          0.5776,
+          0.5629,
+          0.5462,
+          0.5314,
+          0.5182,
+          0.4587,
+          0.4257,
+          0.3894,
+          0.33,
+          0.2409
+        ],
+        "treat_all": [
+          0.6978,
+          0.681,
+          0.6622,
+          0.6411,
+          0.6172,
+          0.5898,
+          0.5583,
+          0.5215,
+          0.4779,
+          0.4257,
+          0.3619,
+          0.2822,
+          0.1796,
+          0.0429,
+          -0.1485,
+          -0.4356,
+          -0.9142,
+          -1.8713,
+          -4.7426
+        ],
+        "prevalence": 0.7129
+      },
+      "refit": {
+        "base_auc": 0.9243,
+        "folds": 10,
+        "ablation": {
+          "Demographics": {
+            "n_features": 3,
+            "auc": 0.9128,
+            "delta": -0.0115,
+            "ci95": [
+              -0.0237,
+              0.0007
+            ]
+          },
+          "History": {
+            "n_features": 11,
+            "auc": 0.9188,
+            "delta": -0.0055,
+            "ci95": [
+              -0.0137,
+              0.0027
+            ]
+          },
+          "Symptoms": {
+            "n_features": 6,
+            "auc": 0.8579,
+            "delta": -0.0664,
+            "ci95": [
+              -0.0759,
+              -0.0568
+            ]
+          },
+          "Vitals": {
+            "n_features": 7,
+            "auc": 0.9282,
+            "delta": 0.004,
+            "ci95": [
+              -0.0006,
+              0.0085
+            ]
+          },
+          "Labs": {
+            "n_features": 14,
+            "auc": 0.9399,
+            "delta": 0.0157,
+            "ci95": [
+              0.0033,
+              0.028
+            ]
+          },
+          "ECG": {
+            "n_features": 7,
+            "auc": 0.9169,
+            "delta": -0.0073,
+            "ci95": [
+              -0.0147,
+              0.0
+            ]
+          },
+          "Echo": {
+            "n_features": 3,
+            "auc": 0.9158,
+            "delta": -0.0084,
+            "ci95": [
+              -0.0155,
+              -0.0013
+            ]
+          }
+        },
+        "engineered": {
+          "auc": 0.9301,
+          "delta": 0.0058,
+          "ci95": [
+            0.0,
+            0.0116
+          ]
+        },
+        "learning": [
+          {
+            "fraction": 0.2,
+            "n_train": 48,
+            "auc": 0.8682,
+            "sd": 0.0368
+          },
+          {
+            "fraction": 0.4,
+            "n_train": 97,
+            "auc": 0.8947,
+            "sd": 0.0293
+          },
+          {
+            "fraction": 0.6,
+            "n_train": 145,
+            "auc": 0.9182,
+            "sd": 0.0421
+          },
+          {
+            "fraction": 0.8,
+            "n_train": 194,
+            "auc": 0.9198,
+            "sd": 0.045
+          },
+          {
+            "fraction": 1.0,
+            "n_train": 242,
+            "auc": 0.9243,
+            "sd": 0.0372
+          }
+        ],
+        "calibration": {
+          "none": {
+            "brier": 0.1006,
+            "sd": 0.0318
+          },
+          "sigmoid": {
+            "brier": 0.1016,
+            "sd": 0.0228
+          },
+          "isotonic": {
+            "brier": 0.1038,
+            "sd": 0.0336
+          }
+        }
+      }
+    },
+    "LAD": {
+      "selected": "rf",
+      "comparison": {
+        "logreg": {
+          "label": "Logistic regression",
+          "auc": 0.8343,
+          "delta_vs_selected": -0.0129,
+          "ci95": [
+            -0.0353,
+            0.01
+          ],
+          "p_better": 0.124,
+          "selected": false
+        },
+        "rf": {
+          "label": "Random forest",
+          "auc": 0.8472,
+          "delta_vs_selected": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "p_better": 0.0,
+          "selected": true
+        },
+        "xgb": {
+          "label": "XGBoost",
+          "auc": 0.8393,
+          "delta_vs_selected": -0.0079,
+          "ci95": [
+            -0.0177,
+            0.0016
+          ],
+          "p_better": 0.051,
+          "selected": false
+        },
+        "lgbm": {
+          "label": "LightGBM",
+          "auc": 0.8449,
+          "delta_vs_selected": -0.0023,
+          "ci95": [
+            -0.0114,
+            0.0069
+          ],
+          "p_better": 0.311,
+          "selected": false
+        }
+      },
+      "decision": {
+        "thresholds": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7,
+          0.75,
+          0.8,
+          0.85,
+          0.9,
+          0.95
+        ],
+        "model": [
+          0.5623,
+          0.5398,
+          0.5141,
+          0.4983,
+          0.4818,
+          0.4597,
+          0.4382,
+          0.4048,
+          0.3966,
+          0.3729,
+          0.3319,
+          0.3003,
+          0.297,
+          0.2464,
+          0.1782,
+          0.1551,
+          0.0847,
+          0.0759,
+          0.0
+        ],
+        "treat_all": [
+          0.5623,
+          0.538,
+          0.5108,
+          0.4802,
+          0.4455,
+          0.4059,
+          0.3602,
+          0.3069,
+          0.2439,
+          0.1683,
+          0.0759,
+          -0.0396,
+          -0.1881,
+          -0.3861,
+          -0.6634,
+          -1.0792,
+          -1.7723,
+          -3.1584,
+          -7.3168
+        ],
+        "prevalence": 0.5842
+      },
+      "refit": {
+        "base_auc": 0.8565,
+        "folds": 10,
+        "ablation": {
+          "Demographics": {
+            "n_features": 3,
+            "auc": 0.8466,
+            "delta": -0.0099,
+            "ci95": [
+              -0.019,
+              -0.0008
+            ]
+          },
+          "History": {
+            "n_features": 11,
+            "auc": 0.8563,
+            "delta": -0.0002,
+            "ci95": [
+              -0.009,
+              0.0086
+            ]
+          },
+          "Symptoms": {
+            "n_features": 6,
+            "auc": 0.7967,
+            "delta": -0.0598,
+            "ci95": [
+              -0.0864,
+              -0.0333
+            ]
+          },
+          "Vitals": {
+            "n_features": 7,
+            "auc": 0.8612,
+            "delta": 0.0047,
+            "ci95": [
+              -0.0002,
+              0.0096
+            ]
+          },
+          "Labs": {
+            "n_features": 14,
+            "auc": 0.8497,
+            "delta": -0.0069,
+            "ci95": [
+              -0.0267,
+              0.013
+            ]
+          },
+          "ECG": {
+            "n_features": 7,
+            "auc": 0.8563,
+            "delta": -0.0002,
+            "ci95": [
+              -0.0107,
+              0.0103
+            ]
+          },
+          "Echo": {
+            "n_features": 3,
+            "auc": 0.8198,
+            "delta": -0.0367,
+            "ci95": [
+              -0.0593,
+              -0.0141
+            ]
+          }
+        },
+        "engineered": {
+          "auc": 0.8564,
+          "delta": -0.0001,
+          "ci95": [
+            -0.0134,
+            0.0131
+          ]
+        },
+        "learning": [
+          {
+            "fraction": 0.2,
+            "n_train": 48,
+            "auc": 0.7756,
+            "sd": 0.0573
+          },
+          {
+            "fraction": 0.4,
+            "n_train": 97,
+            "auc": 0.8287,
+            "sd": 0.041
+          },
+          {
+            "fraction": 0.6,
+            "n_train": 145,
+            "auc": 0.8385,
+            "sd": 0.0549
+          },
+          {
+            "fraction": 0.8,
+            "n_train": 194,
+            "auc": 0.8512,
+            "sd": 0.0568
+          },
+          {
+            "fraction": 1.0,
+            "n_train": 242,
+            "auc": 0.8565,
+            "sd": 0.0461
+          }
+        ],
+        "calibration": {
+          "none": {
+            "brier": 0.1661,
+            "sd": 0.0142
+          },
+          "sigmoid": {
+            "brier": 0.1523,
+            "sd": 0.0219
+          },
+          "isotonic": {
+            "brier": 0.1512,
+            "sd": 0.0284
+          }
+        }
+      }
+    },
+    "LCX": {
+      "selected": "rf",
+      "comparison": {
+        "logreg": {
+          "label": "Logistic regression",
+          "auc": 0.705,
+          "delta_vs_selected": -0.0245,
+          "ci95": [
+            -0.0539,
+            0.0043
+          ],
+          "p_better": 0.045,
+          "selected": false
+        },
+        "rf": {
+          "label": "Random forest",
+          "auc": 0.7294,
+          "delta_vs_selected": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "p_better": 0.0,
+          "selected": true
+        },
+        "xgb": {
+          "label": "XGBoost",
+          "auc": 0.7264,
+          "delta_vs_selected": -0.0031,
+          "ci95": [
+            -0.0207,
+            0.0141
+          ],
+          "p_better": 0.376,
+          "selected": false
+        },
+        "lgbm": {
+          "label": "LightGBM",
+          "auc": 0.7232,
+          "delta_vs_selected": -0.0062,
+          "ci95": [
+            -0.0232,
+            0.0097
+          ],
+          "p_better": 0.232,
+          "selected": false
+        }
+      },
+      "decision": {
+        "thresholds": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7,
+          0.75,
+          0.8,
+          0.85,
+          0.9,
+          0.95
+        ],
+        "model": [
+          0.3608,
+          0.3256,
+          0.2914,
+          0.264,
+          0.2332,
+          0.1905,
+          0.1526,
+          0.1364,
+          0.1128,
+          0.0858,
+          0.022,
+          0.0132,
+          -0.0033,
+          -0.011,
+          -0.0066,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "treat_all": [
+          0.3608,
+          0.3253,
+          0.2856,
+          0.2409,
+          0.1903,
+          0.1325,
+          0.0658,
+          -0.0121,
+          -0.1041,
+          -0.2145,
+          -0.3495,
+          -0.5182,
+          -0.735,
+          -1.0242,
+          -1.429,
+          -2.0363,
+          -3.0484,
+          -5.0726,
+          -11.1452
+        ],
+        "prevalence": 0.3927
+      },
+      "refit": {
+        "base_auc": 0.7231,
+        "folds": 10,
+        "ablation": {
+          "Demographics": {
+            "n_features": 3,
+            "auc": 0.7026,
+            "delta": -0.0205,
+            "ci95": [
+              -0.0352,
+              -0.0058
+            ]
+          },
+          "History": {
+            "n_features": 11,
+            "auc": 0.7174,
+            "delta": -0.0057,
+            "ci95": [
+              -0.0151,
+              0.0037
+            ]
+          },
+          "Symptoms": {
+            "n_features": 6,
+            "auc": 0.6899,
+            "delta": -0.0331,
+            "ci95": [
+              -0.0483,
+              -0.018
+            ]
+          },
+          "Vitals": {
+            "n_features": 7,
+            "auc": 0.7151,
+            "delta": -0.0079,
+            "ci95": [
+              -0.0242,
+              0.0083
+            ]
+          },
+          "Labs": {
+            "n_features": 14,
+            "auc": 0.6935,
+            "delta": -0.0296,
+            "ci95": [
+              -0.0517,
+              -0.0075
+            ]
+          },
+          "ECG": {
+            "n_features": 7,
+            "auc": 0.7181,
+            "delta": -0.005,
+            "ci95": [
+              -0.0164,
+              0.0064
+            ]
+          },
+          "Echo": {
+            "n_features": 3,
+            "auc": 0.7141,
+            "delta": -0.0089,
+            "ci95": [
+              -0.0212,
+              0.0034
+            ]
+          }
+        },
+        "engineered": {
+          "auc": 0.7357,
+          "delta": 0.0126,
+          "ci95": [
+            -0.0029,
+            0.0281
+          ]
+        },
+        "learning": [
+          {
+            "fraction": 0.2,
+            "n_train": 48,
+            "auc": 0.6626,
+            "sd": 0.0894
+          },
+          {
+            "fraction": 0.4,
+            "n_train": 97,
+            "auc": 0.6721,
+            "sd": 0.0944
+          },
+          {
+            "fraction": 0.6,
+            "n_train": 145,
+            "auc": 0.7094,
+            "sd": 0.0875
+          },
+          {
+            "fraction": 0.8,
+            "n_train": 194,
+            "auc": 0.6831,
+            "sd": 0.0715
+          },
+          {
+            "fraction": 1.0,
+            "n_train": 242,
+            "auc": 0.7231,
+            "sd": 0.0778
+          }
+        ],
+        "calibration": {
+          "none": {
+            "brier": 0.2125,
+            "sd": 0.0172
+          },
+          "sigmoid": {
+            "brier": 0.2078,
+            "sd": 0.0212
+          },
+          "isotonic": {
+            "brier": 0.2094,
+            "sd": 0.0288
+          }
+        }
+      }
+    },
+    "RCA": {
+      "selected": "logreg",
+      "comparison": {
+        "logreg": {
+          "label": "Logistic regression",
+          "auc": 0.7288,
+          "delta_vs_selected": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "p_better": 0.0,
+          "selected": true
+        },
+        "rf": {
+          "label": "Random forest",
+          "auc": 0.7226,
+          "delta_vs_selected": -0.0062,
+          "ci95": [
+            -0.0368,
+            0.0243
+          ],
+          "p_better": 0.347,
+          "selected": false
+        },
+        "xgb": {
+          "label": "XGBoost",
+          "auc": 0.7334,
+          "delta_vs_selected": 0.0046,
+          "ci95": [
+            -0.0273,
+            0.0362
+          ],
+          "p_better": 0.62,
+          "selected": false
+        },
+        "lgbm": {
+          "label": "LightGBM",
+          "auc": 0.7344,
+          "delta_vs_selected": 0.0056,
+          "ci95": [
+            -0.0269,
+            0.0377
+          ],
+          "p_better": 0.645,
+          "selected": false
+        }
+      },
+      "decision": {
+        "thresholds": [
+          0.05,
+          0.1,
+          0.15,
+          0.2,
+          0.25,
+          0.3,
+          0.35,
+          0.4,
+          0.45,
+          0.5,
+          0.55,
+          0.6,
+          0.65,
+          0.7,
+          0.75,
+          0.8,
+          0.85,
+          0.9,
+          0.95
+        ],
+        "model": [
+          0.3434,
+          0.3077,
+          0.2671,
+          0.236,
+          0.2156,
+          0.1792,
+          0.1561,
+          0.1133,
+          0.0906,
+          0.0363,
+          0.0352,
+          0.0314,
+          0.0151,
+          -0.0011,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "treat_all": [
+          0.3434,
+          0.3069,
+          0.2662,
+          0.2203,
+          0.1683,
+          0.1089,
+          0.0404,
+          -0.0396,
+          -0.1341,
+          -0.2475,
+          -0.3861,
+          -0.5594,
+          -0.7822,
+          -1.0792,
+          -1.495,
+          -2.1188,
+          -3.1584,
+          -5.2376,
+          -11.4752
+        ],
+        "prevalence": 0.3762
+      },
+      "refit": {
+        "base_auc": 0.7474,
+        "folds": 10,
+        "ablation": {
+          "Demographics": {
+            "n_features": 3,
+            "auc": 0.7226,
+            "delta": -0.0248,
+            "ci95": [
+              -0.0378,
+              -0.0118
+            ]
+          },
+          "History": {
+            "n_features": 11,
+            "auc": 0.723,
+            "delta": -0.0244,
+            "ci95": [
+              -0.0323,
+              -0.0165
+            ]
+          },
+          "Symptoms": {
+            "n_features": 6,
+            "auc": 0.7047,
+            "delta": -0.0427,
+            "ci95": [
+              -0.0555,
+              -0.03
+            ]
+          },
+          "Vitals": {
+            "n_features": 7,
+            "auc": 0.7484,
+            "delta": 0.001,
+            "ci95": [
+              -0.0012,
+              0.0031
+            ]
+          },
+          "Labs": {
+            "n_features": 14,
+            "auc": 0.7383,
+            "delta": -0.0091,
+            "ci95": [
+              -0.0223,
+              0.0041
+            ]
+          },
+          "ECG": {
+            "n_features": 7,
+            "auc": 0.7474,
+            "delta": 0.0,
+            "ci95": [
+              0.0,
+              0.0
+            ]
+          },
+          "Echo": {
+            "n_features": 3,
+            "auc": 0.7516,
+            "delta": 0.0042,
+            "ci95": [
+              -0.002,
+              0.0104
+            ]
+          }
+        },
+        "engineered": {
+          "auc": 0.7533,
+          "delta": 0.0059,
+          "ci95": [
+            -0.009,
+            0.0208
+          ]
+        },
+        "learning": [
+          {
+            "fraction": 0.2,
+            "n_train": 48,
+            "auc": 0.628,
+            "sd": 0.0686
+          },
+          {
+            "fraction": 0.4,
+            "n_train": 97,
+            "auc": 0.6254,
+            "sd": 0.0732
+          },
+          {
+            "fraction": 0.6,
+            "n_train": 145,
+            "auc": 0.7048,
+            "sd": 0.0688
+          },
+          {
+            "fraction": 0.8,
+            "n_train": 194,
+            "auc": 0.7369,
+            "sd": 0.0627
+          },
+          {
+            "fraction": 1.0,
+            "n_train": 242,
+            "auc": 0.7474,
+            "sd": 0.0435
+          }
+        ],
+        "calibration": {
+          "none": {
+            "brier": 0.2069,
+            "sd": 0.0126
+          },
+          "sigmoid": {
+            "brier": 0.2001,
+            "sd": 0.0107
+          },
+          "isotonic": {
+            "brier": 0.2025,
+            "sd": 0.0151
+          }
+        }
+      }
+    }
+  },
+  "robustness": {
+    "CAD": {
+      "5pct_sd": {
+        "mean_abs_change": 0.0046,
+        "p95_abs_change": 0.0166,
+        "state_change_rate": 0.0165,
+        "likely_unlikely_flip_rate": 0.0
+      },
+      "10pct_sd": {
+        "mean_abs_change": 0.0098,
+        "p95_abs_change": 0.0349,
+        "state_change_rate": 0.0271,
+        "likely_unlikely_flip_rate": 0.0
+      }
+    },
+    "LAD": {
+      "5pct_sd": {
+        "mean_abs_change": 0.0103,
+        "p95_abs_change": 0.0393,
+        "state_change_rate": 0.0119,
+        "likely_unlikely_flip_rate": 0.0
+      },
+      "10pct_sd": {
+        "mean_abs_change": 0.0203,
+        "p95_abs_change": 0.07,
+        "state_change_rate": 0.029,
+        "likely_unlikely_flip_rate": 0.0
+      }
+    },
+    "LCX": {
+      "5pct_sd": {
+        "mean_abs_change": 0.0134,
+        "p95_abs_change": 0.0451,
+        "state_change_rate": 0.0535,
+        "likely_unlikely_flip_rate": 0.0
+      },
+      "10pct_sd": {
+        "mean_abs_change": 0.0259,
+        "p95_abs_change": 0.0792,
+        "state_change_rate": 0.1017,
+        "likely_unlikely_flip_rate": 0.0
+      }
+    },
+    "RCA": {
+      "5pct_sd": {
+        "mean_abs_change": 0.0046,
+        "p95_abs_change": 0.0117,
+        "state_change_rate": 0.0119,
+        "likely_unlikely_flip_rate": 0.0
+      },
+      "10pct_sd": {
+        "mean_abs_change": 0.0094,
+        "p95_abs_change": 0.0245,
+        "state_change_rate": 0.0224,
+        "likely_unlikely_flip_rate": 0.0
+      }
+    }
+  },
+  "ood": {
+    "false_alarm_rate_training": 0.0132,
+    "synthetic_extreme_detection": 1.0,
+    "shuffled_combination_detection": 0.1733,
+    "n_synthetic": 300
+  },
+  "nextbest": {
+    "n": 60,
+    "blanked": [
+      "ECG",
+      "Echo",
+      "Labs"
+    ],
+    "mean_gap": {
+      "none": 0.1351,
+      "top": 0.0593,
+      "random": 0.1058
+    },
+    "top_closes_more_than_random": 0.783,
+    "top_is_best_test": 0.683
+  },
+  "chain": {
+    "LAD": {
+      "base_auc": 0.8565,
+      "auc": 0.8628,
+      "delta": 0.0062,
+      "ci95": [
+        -0.0026,
+        0.0151
+      ]
+    },
+    "LCX": {
+      "base_auc": 0.7231,
+      "auc": 0.7239,
+      "delta": 0.0008,
+      "ci95": [
+        -0.0164,
+        0.018
+      ]
+    },
+    "RCA": {
+      "base_auc": 0.7474,
+      "auc": 0.7403,
+      "delta": -0.0071,
+      "ci95": [
+        -0.0163,
+        0.0021
+      ]
+    }
+  },
+  "baselines": {
+    "scores": {
+      "esc2019": {
+        "label": "ESC 2019 pre-test probability",
+        "short": "ESC 2019",
+        "inputs": "age, sex, symptom type (incl. dyspnoea)"
+      },
+      "esc2013": {
+        "label": "ESC 2013 / updated Diamond-Forrester",
+        "short": "ESC 2013",
+        "inputs": "age, sex, chest-pain type"
+      },
+      "cadc": {
+        "label": "CAD Consortium (basic)",
+        "short": "CAD Consortium",
+        "inputs": "age, sex, chest-pain type"
+      },
+      "cadc_rf": {
+        "label": "CAD Consortium (clinical)",
+        "short": "CAD Consortium + RF",
+        "inputs": "age, sex, chest-pain type, diabetes, hypertension, dyslipidaemia, smoking"
+      },
+      "refit": {
+        "label": "Clinical model refitted on this data",
+        "short": "Refit clinical",
+        "inputs": "age, sex, symptom type, 5 risk factors (logistic regression, same CV)"
+      }
+    },
+    "nri_bands": [
+      0.15,
+      0.85
+    ],
+    "observed_prevalence": 0.7129,
+    "symptom_counts": {
+      "typical": 164,
+      "atypical": 93,
+      "dyspnoea": 25,
+      "nonanginal": 21
+    },
+    "targets": {
+      "CAD": {
+        "model": {
+          "auc": 0.9259,
+          "auc_ci95": [
+            0.8935,
+            0.9537
+          ],
+          "brier": 0.0998,
+          "mean_pred": 0.7077
+        },
+        "baselines": {
+          "esc2019": {
+            "auc": 0.8219,
+            "auc_ci95": [
+              0.767,
+              0.8726
+            ],
+            "delta_auc": 0.104,
+            "delta_ci95": [
+              0.06,
+              0.1501
+            ],
+            "p_model_better": 1.0,
+            "brier": 0.4051,
+            "mean_pred": 0.2246,
+            "nri": {
+              "categorical": 0.1295,
+              "events": 0.7731,
+              "nonevents": -0.6437,
+              "continuous": 0.0597,
+              "categorical_ci95": [
+                0.0109,
+                0.2463
+              ],
+              "continuous_ci95": [
+                -0.0092,
+                0.1427
+              ]
+            }
+          },
+          "esc2013": {
+            "auc": 0.8267,
+            "auc_ci95": [
+              0.7722,
+              0.8758
+            ],
+            "delta_auc": 0.0993,
+            "delta_ci95": [
+              0.0555,
+              0.1451
+            ],
+            "p_model_better": 1.0,
+            "brier": 0.1772,
+            "mean_pred": 0.5375,
+            "nri": {
+              "categorical": 0.5097,
+              "events": 0.5787,
+              "nonevents": -0.069,
+              "continuous": 0.6143,
+              "categorical_ci95": [
+                0.3835,
+                0.6289
+              ],
+              "continuous_ci95": [
+                0.3951,
+                0.8412
+              ]
+            }
+          },
+          "cadc": {
+            "auc": 0.8477,
+            "auc_ci95": [
+              0.7958,
+              0.8937
+            ],
+            "delta_auc": 0.0783,
+            "delta_ci95": [
+              0.0393,
+              0.1189
+            ],
+            "p_model_better": 1.0,
+            "brier": 0.3204,
+            "mean_pred": 0.3051,
+            "nri": {
+              "categorical": 0.0672,
+              "events": 0.7454,
+              "nonevents": -0.6782,
+              "continuous": 0.0734,
+              "categorical_ci95": [
+                -0.0518,
+                0.1828
+              ],
+              "continuous_ci95": [
+                -0.0098,
+                0.1732
+              ]
+            }
+          },
+          "cadc_rf": {
+            "auc": 0.879,
+            "auc_ci95": [
+              0.8303,
+              0.921
+            ],
+            "delta_auc": 0.047,
+            "delta_ci95": [
+              0.0126,
+              0.0831
+            ],
+            "p_model_better": 0.996,
+            "brier": 0.3275,
+            "mean_pred": 0.2896,
+            "nri": {
+              "categorical": 0.0327,
+              "events": 0.7454,
+              "nonevents": -0.7126,
+              "continuous": 0.0137,
+              "categorical_ci95": [
+                -0.0791,
+                0.1455
+              ],
+              "continuous_ci95": [
+                -0.0268,
+                0.0686
+              ]
+            }
+          },
+          "refit": {
+            "auc": 0.9059,
+            "auc_ci95": [
+              0.8632,
+              0.9414
+            ],
+            "delta_auc": 0.0201,
+            "delta_ci95": [
+              -0.0064,
+              0.0474
+            ],
+            "p_model_better": 0.925,
+            "brier": 0.1017,
+            "mean_pred": 0.7137,
+            "nri": {
+              "categorical": -0.1823,
+              "events": -0.1019,
+              "nonevents": -0.0805,
+              "continuous": -0.326,
+              "categorical_ci95": [
+                -0.3089,
+                -0.0564
+              ],
+              "continuous_ci95": [
+                -0.5779,
+                -0.0714
+              ]
+            }
+          }
+        }
+      },
+      "LAD": {
+        "model": {
+          "auc": 0.8472,
+          "auc_ci95": [
+            0.8004,
+            0.8901
+          ],
+          "brier": 0.1555,
+          "mean_pred": 0.5823
+        },
+        "baselines": {
+          "esc2019": {
+            "auc": 0.7637,
+            "auc_ci95": [
+              0.7055,
+              0.8169
+            ],
+            "delta_auc": 0.0835,
+            "delta_ci95": [
+              0.0359,
+              0.1374
+            ],
+            "p_model_better": 1.0,
+            "brier": 0.3334,
+            "mean_pred": 0.2246
+          },
+          "esc2013": {
+            "auc": 0.7688,
+            "auc_ci95": [
+              0.7122,
+              0.8201
+            ],
+            "delta_auc": 0.0785,
+            "delta_ci95": [
+              0.0325,
+              0.1306
+            ],
+            "p_model_better": 0.999,
+            "brier": 0.1914,
+            "mean_pred": 0.5375
+          },
+          "cadc": {
+            "auc": 0.7877,
+            "auc_ci95": [
+              0.7321,
+              0.8375
+            ],
+            "delta_auc": 0.0595,
+            "delta_ci95": [
+              0.0165,
+              0.1086
+            ],
+            "p_model_better": 0.997,
+            "brier": 0.2686,
+            "mean_pred": 0.3051
+          },
+          "cadc_rf": {
+            "auc": 0.7951,
+            "auc_ci95": [
+              0.7364,
+              0.8467
+            ],
+            "delta_auc": 0.0521,
+            "delta_ci95": [
+              0.0085,
+              0.0973
+            ],
+            "p_model_better": 0.99,
+            "brier": 0.2776,
+            "mean_pred": 0.2896
+          },
+          "refit": {
+            "auc": 0.7908,
+            "auc_ci95": [
+              0.7363,
+              0.8437
+            ],
+            "delta_auc": 0.0565,
+            "delta_ci95": [
+              0.0178,
+              0.0967
+            ],
+            "p_model_better": 0.999,
+            "brier": 0.1727,
+            "mean_pred": 0.5862
+          }
+        }
+      },
+      "LCX": {
+        "model": {
+          "auc": 0.7294,
+          "auc_ci95": [
+            0.6705,
+            0.7844
+          ],
+          "brier": 0.2042,
+          "mean_pred": 0.3954
+        },
+        "baselines": {
+          "esc2019": {
+            "auc": 0.7122,
+            "auc_ci95": [
+              0.6538,
+              0.7672
+            ],
+            "delta_auc": 0.0173,
+            "delta_ci95": [
+              -0.0387,
+              0.0743
+            ],
+            "p_model_better": 0.726,
+            "brier": 0.2408,
+            "mean_pred": 0.2246
+          },
+          "esc2013": {
+            "auc": 0.7209,
+            "auc_ci95": [
+              0.6603,
+              0.776
+            ],
+            "delta_auc": 0.0086,
+            "delta_ci95": [
+              -0.0495,
+              0.0685
+            ],
+            "p_model_better": 0.615,
+            "brier": 0.2277,
+            "mean_pred": 0.5375
+          },
+          "cadc": {
+            "auc": 0.7425,
+            "auc_ci95": [
+              0.6831,
+              0.7977
+            ],
+            "delta_auc": -0.013,
+            "delta_ci95": [
+              -0.065,
+              0.0423
+            ],
+            "p_model_better": 0.331,
+            "brier": 0.2102,
+            "mean_pred": 0.3051
+          },
+          "cadc_rf": {
+            "auc": 0.759,
+            "auc_ci95": [
+              0.7026,
+              0.8083
+            ],
+            "delta_auc": -0.0295,
+            "delta_ci95": [
+              -0.0778,
+              0.0202
+            ],
+            "p_model_better": 0.12,
+            "brier": 0.2058,
+            "mean_pred": 0.2896
+          },
+          "refit": {
+            "auc": 0.7479,
+            "auc_ci95": [
+              0.6907,
+              0.8031
+            ],
+            "delta_auc": -0.0185,
+            "delta_ci95": [
+              -0.0627,
+              0.0257
+            ],
+            "p_model_better": 0.204,
+            "brier": 0.1989,
+            "mean_pred": 0.3914
+          }
+        }
+      },
+      "RCA": {
+        "model": {
+          "auc": 0.7288,
+          "auc_ci95": [
+            0.6699,
+            0.7864
+          ],
+          "brier": 0.2013,
+          "mean_pred": 0.3735
+        },
+        "baselines": {
+          "esc2019": {
+            "auc": 0.7036,
+            "auc_ci95": [
+              0.6441,
+              0.7614
+            ],
+            "delta_auc": 0.0252,
+            "delta_ci95": [
+              -0.0363,
+              0.0878
+            ],
+            "p_model_better": 0.767,
+            "brier": 0.2341,
+            "mean_pred": 0.2246
+          },
+          "esc2013": {
+            "auc": 0.7003,
+            "auc_ci95": [
+              0.6389,
+              0.7574
+            ],
+            "delta_auc": 0.0285,
+            "delta_ci95": [
+              -0.038,
+              0.0956
+            ],
+            "p_model_better": 0.793,
+            "brier": 0.2368,
+            "mean_pred": 0.5375
+          },
+          "cadc": {
+            "auc": 0.7001,
+            "auc_ci95": [
+              0.6391,
+              0.7568
+            ],
+            "delta_auc": 0.0287,
+            "delta_ci95": [
+              -0.0315,
+              0.0906
+            ],
+            "p_model_better": 0.811,
+            "brier": 0.2195,
+            "mean_pred": 0.3051
+          },
+          "cadc_rf": {
+            "auc": 0.7326,
+            "auc_ci95": [
+              0.6761,
+              0.7887
+            ],
+            "delta_auc": -0.0038,
+            "delta_ci95": [
+              -0.0589,
+              0.0528
+            ],
+            "p_model_better": 0.429,
+            "brier": 0.2116,
+            "mean_pred": 0.2896
+          },
+          "refit": {
+            "auc": 0.74,
+            "auc_ci95": [
+              0.683,
+              0.7949
+            ],
+            "delta_auc": -0.0112,
+            "delta_ci95": [
+              -0.0575,
+              0.0356
+            ],
+            "p_model_better": 0.309,
+            "brier": 0.2001,
+            "mean_pred": 0.3768
+          }
+        }
+      }
+    },
+    "bands": {
+      "model": {
+        "cad": [
+          0,
+          81,
+          135
+        ],
+        "no_cad": [
+          9,
+          75,
+          3
+        ]
+      },
+      "esc2019": {
+        "cad": [
+          53,
+          163,
+          0
+        ],
+        "no_cad": [
+          62,
+          25,
+          0
+        ]
+      },
+      "esc2013": {
+        "cad": [
+          7,
+          193,
+          16
+        ],
+        "no_cad": [
+          13,
+          73,
+          1
+        ]
+      },
+      "cadc": {
+        "cad": [
+          42,
+          174,
+          0
+        ],
+        "no_cad": [
+          65,
+          22,
+          0
+        ]
+      },
+      "cadc_rf": {
+        "cad": [
+          39,
+          176,
+          1
+        ],
+        "no_cad": [
+          68,
+          19,
+          0
+        ]
+      },
+      "refit": {
+        "cad": [
+          5,
+          50,
+          161
+        ],
+        "no_cad": [
+          21,
+          58,
+          8
+        ]
+      }
+    },
+    "decision": {
+      "thresholds": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85,
+        0.9,
+        0.95
+      ],
+      "model": [
+        0.6978,
+        0.6824,
+        0.6674,
+        0.6526,
+        0.6348,
+        0.6219,
+        0.6118,
+        0.6106,
+        0.5923,
+        0.5776,
+        0.5629,
+        0.5462,
+        0.5314,
+        0.5182,
+        0.4587,
+        0.4257,
+        0.3894,
+        0.33,
+        0.2409
+      ],
+      "esc2019": [
+        0.6859,
+        0.6663,
+        0.5234,
+        0.4241,
+        0.374,
+        0.2918,
+        0.1465,
+        0.1452,
+        0.0501,
+        0.0495,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "esc2013": [
+        0.6978,
+        0.6755,
+        0.6467,
+        0.6254,
+        0.6161,
+        0.5851,
+        0.5697,
+        0.5303,
+        0.5122,
+        0.4521,
+        0.4349,
+        0.3498,
+        0.3428,
+        0.2266,
+        0.2178,
+        0.1122,
+        0.0341,
+        0.0,
+        0.0
+      ],
+      "cadc": [
+        0.679,
+        0.6439,
+        0.5614,
+        0.5025,
+        0.4664,
+        0.4229,
+        0.3689,
+        0.3113,
+        0.2559,
+        0.1947,
+        0.1496,
+        0.104,
+        0.0566,
+        0.0451,
+        0.0297,
+        0.0099,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cadc_rf": [
+        0.6804,
+        0.652,
+        0.5731,
+        0.5314,
+        0.4807,
+        0.4041,
+        0.3295,
+        0.2805,
+        0.2262,
+        0.1716,
+        0.1199,
+        0.0891,
+        0.0599,
+        0.0451,
+        0.0363,
+        0.0132,
+        0.0033,
+        0.0,
+        0.0
+      ],
+      "refit": [
+        0.6981,
+        0.6821,
+        0.6579,
+        0.6436,
+        0.6381,
+        0.6266,
+        0.6078,
+        0.5963,
+        0.5854,
+        0.5842,
+        0.5684,
+        0.5627,
+        0.538,
+        0.5204,
+        0.4851,
+        0.4488,
+        0.3817,
+        0.3135,
+        0.2178
+      ],
+      "treat_all": [
+        0.6978,
+        0.681,
+        0.6622,
+        0.6411,
+        0.6172,
+        0.5898,
+        0.5583,
+        0.5215,
+        0.4779,
+        0.4257,
+        0.3619,
+        0.2822,
+        0.1796,
+        0.0429,
+        -0.1485,
+        -0.4356,
+        -0.9142,
+        -1.8713,
+        -4.7426
+      ]
+    }
+  }
+}

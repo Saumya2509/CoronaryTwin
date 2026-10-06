@@ -1,0 +1,252 @@
+[
+  {
+    "file": "01_healthy_young_woman.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "02_healthy_young_man.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "03_middle_aged_asymptomatic.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "04_typical_angina_smoker.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "05_diabetic_hypertensive_woman.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "06_elderly_typical_angina.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "07_atypical_pain_young_woman.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "08_nonanginal_pain.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "09_st_elevation_q_wave.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "10_st_depression_only.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "11_t_wave_inversion.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "12_left_bundle_branch_block.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "13_right_bundle_branch_block.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "14_reduced_ef_wall_motion.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "15_isolated_wall_motion.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "16_severe_valve_disease.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "17_high_ldl_triglycerides.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "18_metabolic_syndrome.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "19_chronic_kidney_disease.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "20_heart_failure_dyspnea.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "21_prior_stroke.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "22_young_family_history.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "23_ex_smoker.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "24_thyroid_disease.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "25_anemia.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "26_high_inflammation.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "27_tachycardia.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "28_very_high_blood_pressure.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "29_typical_pain_normal_tests.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "30_everything_normal_45_man.csv",
+    "kind": "Clinical profile",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "31_key_fields_only.csv",
+    "kind": "Data quality",
+    "expect": "Loads; the other 41 are imputed and flagged."
+  },
+  {
+    "file": "32_age_and_sex_only.csv",
+    "kind": "Data quality",
+    "expect": "Loads; 49 values imputed. The estimate leans on typical values."
+  },
+  {
+    "file": "33_original_dataset_format.csv",
+    "kind": "Data quality",
+    "expect": "Loads exactly like the canonical format."
+  },
+  {
+    "file": "34_semicolon_separated.csv",
+    "kind": "Data quality",
+    "expect": "Separator is detected; loads normally."
+  },
+  {
+    "file": "35_out_of_range_values.csv",
+    "kind": "Data quality",
+    "expect": "Row 1 is flagged with three messages and not scored; row 2 is scored."
+  },
+  {
+    "file": "36_typos_and_text.csv",
+    "kind": "Data quality",
+    "expect": "Row 1 is flagged (not a number / not yes-no); row 2 is scored."
+  },
+  {
+    "file": "37_extra_columns.csv",
+    "kind": "Data quality",
+    "expect": "Loads; the extra columns are listed as ignored."
+  },
+  {
+    "file": "38_quoted_patient_id.csv",
+    "kind": "Data quality",
+    "expect": "Quoting is parsed correctly; the ID shows as written."
+  },
+  {
+    "file": "39_yes_no_text.csv",
+    "kind": "Data quality",
+    "expect": "Words are understood; loads normally."
+  },
+  {
+    "file": "40_missing_markers.csv",
+    "kind": "Data quality",
+    "expect": "Treated as missing (imputed and flagged), not as errors."
+  },
+  {
+    "file": "41_cohort_low_risk_10.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "42_cohort_high_risk_10.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "43_cohort_mixed_20.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "44_sweep_age.csv",
+    "kind": "Batch",
+    "expect": "Same patient, one value changed per row. Shows model sensitivity, not treatment effect."
+  },
+  {
+    "file": "45_sweep_ldl.csv",
+    "kind": "Batch",
+    "expect": "Same patient, one value changed per row. Shows model sensitivity, not treatment effect."
+  },
+  {
+    "file": "46_sweep_blood_pressure.csv",
+    "kind": "Batch",
+    "expect": "Same patient, one value changed per row. Shows model sensitivity, not treatment effect."
+  },
+  {
+    "file": "47_sweep_ejection_fraction.csv",
+    "kind": "Batch",
+    "expect": "Same patient, one value changed per row. Shows model sensitivity, not treatment effect."
+  },
+  {
+    "file": "48_chest_pain_variants.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "49_smoker_pairs.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  },
+  {
+    "file": "50_batch_100_patients.csv",
+    "kind": "Batch",
+    "expect": "All rows load and are scored."
+  }
+]

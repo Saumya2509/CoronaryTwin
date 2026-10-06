@@ -1,0 +1,327 @@
+{
+  "feature_order": [
+    "age",
+    "sex_male",
+    "bmi",
+    "diabetes",
+    "hypertension",
+    "current_smoker",
+    "ex_smoker",
+    "family_history",
+    "chronic_renal_failure",
+    "cva",
+    "airway_disease",
+    "thyroid_disease",
+    "chf",
+    "dyslipidemia",
+    "bp",
+    "pulse_rate",
+    "edema",
+    "weak_peripheral_pulse",
+    "lung_rales",
+    "systolic_murmur",
+    "diastolic_murmur",
+    "typical_chest_pain",
+    "atypical_chest_pain",
+    "nonanginal_chest_pain",
+    "low_threshold_angina",
+    "dyspnea",
+    "function_class",
+    "q_wave",
+    "st_elevation",
+    "st_depression",
+    "t_inversion",
+    "lvh",
+    "poor_r_progression",
+    "bbb",
+    "fbs",
+    "creatinine",
+    "tg",
+    "ldl",
+    "hdl",
+    "bun",
+    "esr",
+    "hb",
+    "k",
+    "na",
+    "wbc",
+    "lymph",
+    "neut",
+    "plt",
+    "ef_tte",
+    "region_rwma",
+    "vhd"
+  ],
+  "features": {
+    "age": {
+      "source": "Age",
+      "type": "numeric",
+      "group": "Demographics"
+    },
+    "sex_male": {
+      "source": "Sex",
+      "type": "binary",
+      "group": "Demographics"
+    },
+    "bmi": {
+      "source": "BMI",
+      "type": "numeric",
+      "group": "Demographics"
+    },
+    "diabetes": {
+      "source": "DM",
+      "type": "binary",
+      "group": "History"
+    },
+    "hypertension": {
+      "source": "HTN",
+      "type": "binary",
+      "group": "History"
+    },
+    "current_smoker": {
+      "source": "Current Smoker",
+      "type": "binary",
+      "group": "History"
+    },
+    "ex_smoker": {
+      "source": "EX-Smoker",
+      "type": "binary",
+      "group": "History"
+    },
+    "family_history": {
+      "source": "FH",
+      "type": "binary",
+      "group": "History"
+    },
+    "chronic_renal_failure": {
+      "source": "CRF",
+      "type": "binary",
+      "group": "History"
+    },
+    "cva": {
+      "source": "CVA",
+      "type": "binary",
+      "group": "History"
+    },
+    "airway_disease": {
+      "source": "Airway disease",
+      "type": "binary",
+      "group": "History"
+    },
+    "thyroid_disease": {
+      "source": "Thyroid Disease",
+      "type": "binary",
+      "group": "History"
+    },
+    "chf": {
+      "source": "CHF",
+      "type": "binary",
+      "group": "History"
+    },
+    "dyslipidemia": {
+      "source": "DLP",
+      "type": "binary",
+      "group": "History"
+    },
+    "bp": {
+      "source": "BP",
+      "type": "numeric",
+      "group": "Vitals"
+    },
+    "pulse_rate": {
+      "source": "PR",
+      "type": "numeric",
+      "group": "Vitals"
+    },
+    "edema": {
+      "source": "Edema",
+      "type": "binary",
+      "group": "Vitals"
+    },
+    "weak_peripheral_pulse": {
+      "source": "Weak Peripheral Pulse",
+      "type": "binary",
+      "group": "Vitals"
+    },
+    "lung_rales": {
+      "source": "Lung rales",
+      "type": "binary",
+      "group": "Vitals"
+    },
+    "systolic_murmur": {
+      "source": "Systolic Murmur",
+      "type": "binary",
+      "group": "Vitals"
+    },
+    "diastolic_murmur": {
+      "source": "Diastolic Murmur",
+      "type": "binary",
+      "group": "Vitals"
+    },
+    "typical_chest_pain": {
+      "source": "Typical Chest Pain",
+      "type": "binary",
+      "group": "Symptoms"
+    },
+    "atypical_chest_pain": {
+      "source": "Atypical",
+      "type": "binary",
+      "group": "Symptoms"
+    },
+    "nonanginal_chest_pain": {
+      "source": "Nonanginal",
+      "type": "binary",
+      "group": "Symptoms"
+    },
+    "low_threshold_angina": {
+      "source": "LowTH Ang",
+      "type": "binary",
+      "group": "Symptoms"
+    },
+    "dyspnea": {
+      "source": "Dyspnea",
+      "type": "binary",
+      "group": "Symptoms"
+    },
+    "function_class": {
+      "source": "Function Class",
+      "type": "ordinal",
+      "group": "Symptoms"
+    },
+    "q_wave": {
+      "source": "Q Wave",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "st_elevation": {
+      "source": "St Elevation",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "st_depression": {
+      "source": "St Depression",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "t_inversion": {
+      "source": "Tinversion",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "lvh": {
+      "source": "LVH",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "poor_r_progression": {
+      "source": "Poor R Progression",
+      "type": "binary",
+      "group": "ECG"
+    },
+    "bbb": {
+      "source": "BBB",
+      "type": "categorical",
+      "group": "ECG"
+    },
+    "fbs": {
+      "source": "FBS",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "creatinine": {
+      "source": "CR",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "tg": {
+      "source": "TG",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "ldl": {
+      "source": "LDL",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "hdl": {
+      "source": "HDL",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "bun": {
+      "source": "BUN",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "esr": {
+      "source": "ESR",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "hb": {
+      "source": "HB",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "k": {
+      "source": "K",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "na": {
+      "source": "Na",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "wbc": {
+      "source": "WBC",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "lymph": {
+      "source": "Lymph",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "neut": {
+      "source": "Neut",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "plt": {
+      "source": "PLT",
+      "type": "numeric",
+      "group": "Labs"
+    },
+    "ef_tte": {
+      "source": "EF-TTE",
+      "type": "numeric",
+      "group": "Echo"
+    },
+    "region_rwma": {
+      "source": "Region RWMA",
+      "type": "ordinal",
+      "group": "Echo"
+    },
+    "vhd": {
+      "source": "VHD",
+      "type": "ordinal",
+      "group": "Echo"
+    }
+  },
+  "targets": [
+    "CAD",
+    "LAD",
+    "LCX",
+    "RCA"
+  ],
+  "n_rows": 303,
+  "positive_rate": {
+    "CAD": 0.7129,
+    "LAD": 0.5842,
+    "LCX": 0.3927,
+    "RCA": 0.3762
+  },
+  "source_file": "extention of Z-Alizadeh sani dataset.xlsx",
+  "source_sha256": "739343245c2ba578b541370217531750d8e936022f928b83e0d91756caa3ff0b"
+}

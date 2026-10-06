@@ -1,0 +1,65 @@
+# CoronaryTwin project-wide settings.
+# Anything that more than one module needs lives here, so it is defined once.
+
+project:
+  name: CoronaryTwin
+  seed: 42
+
+# Prediction targets. "overall" is the whole-patient CAD model; "vessels" are the
+# per-artery stenosis models. These strings are the vessel-ID contract: they must
+# match model files, API keys, mesh names, store keys and UI labels exactly.
+targets:
+  overall: CAD
+  vessels: [LAD, LCX, RCA]
+
+# SHAP group names, in display order. Every feature in features.yaml must use one.
+# History and Symptoms were added in module 01: chest-pain type, DM and HTN are among
+# the strongest predictors and belong to none of the original five groups.
+feature_groups: [Demographics, History, Symptoms, Vitals, Labs, ECG, Echo]
+
+# Columns that must never reach a model as inputs (module 01 leakage guard).
+banned_inputs: [LAD, LCX, RCA, Cath]
+
+conformal:
+  alpha: 0.10          # target 90% coverage
+
+# Module 02: nested, repeated, stratified cross-validation.
+training:
+  families: [logreg, rf, xgb, lgbm]
+  outer_splits: 5
+  outer_repeats: 5
+  inner_splits: 3
+  search_iter: 15      # RandomizedSearchCV candidates per outer fold
+  calibration: sigmoid # Platt scaling; isotonic overfits on ~240 training rows
+  calibration_cv: 5
+  bootstrap: 2000      # resamples for 95% CIs
+  # Threshold: the highest cut-off whose out-of-fold recall is still >= min_recall.
+  # Screening favors recall: a missed stenosis costs more than a false alarm.
+  min_recall: 0.85
+  fast:                # `python -m src.train --fast` for smoke runs and tests
+    families: [logreg, lgbm]
+    outer_repeats: 1
+    search_iter: 3
+    bootstrap: 200
+
+# Coherence layer (module 02). Flag when overall CAD and the most likely vessel
+# point in opposite directions.
+coherence:
+  high: 0.70           # a probability at or above this counts as "high"
+  low: 0.30            # a probability at or below this counts as "low"
+
+# SQLite: reference data plus an anonymous log of prediction outputs (never inputs or patient IDs).
+# Override the path with CORONARYTWIN_DB=<path>, or disable with CORONARYTWIN_DB=off. Browse: python view_db.py
+database:
+  enabled: true
+  path: data/coronarytwin.db
+
+api:
+  cors_origins:
+    - http://localhost:5173
+    - http://127.0.0.1:5173
+  whatif_debounce_ms: 250
+
+disclaimer: >-
+  For decision support and educational purposes only. Not a substitute for
+  formal diagnostic imaging or clinical judgment.
