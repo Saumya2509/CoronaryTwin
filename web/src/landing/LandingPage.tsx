@@ -6,7 +6,6 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState, type ReactNode } 
 import { getGlobalExplanations, getMetrics } from "../api/client";
 import type { MetricsResponse } from "../api/types";
 import { anatomy } from "../anatomy";
-import { DisclaimerBanner } from "../components/Disclaimer";
 import { startGuidedTour } from "../components/PresentMode";
 import { downloadText, templateCsv } from "../csv";
 import { pct } from "../features";
@@ -364,7 +363,6 @@ export function LandingPage({ online, onLaunchDashboard }: LandingPageProps) {
   return (
     <div className="lp" ref={rootRef}>
       <a className="lp-skip" href="#top">Skip to content</a>
-      <DisclaimerBanner />
       <IslandNav onOpenReport={launch} onPreload={preload} />
 
       <main id="top">

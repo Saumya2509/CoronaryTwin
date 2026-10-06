@@ -68,7 +68,7 @@
 
 /* ---------------------------------------------------------------- island nav */
 .lp-island {
-  position: sticky; top: 24px; z-index: 50; margin: 24px auto 0; width: max-content; max-width: calc(100% - 32px);
+  position: static; margin: 24px auto 0; width: max-content; max-width: calc(100% - 32px);
   display: flex; align-items: center; gap: 24px; padding: 4px 4px 4px 16px; border-radius: 9999px;
   background: var(--lp-glass); border: 1px solid var(--lp-line-2);
   backdrop-filter: blur(24px) saturate(1.4); -webkit-backdrop-filter: blur(24px) saturate(1.4);

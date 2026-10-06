@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { DisclaimerBanner, FirstUseModal } from "./components/Disclaimer";
+import { FirstUseModal } from "./components/Disclaimer";
 import { Header } from "./components/Header";
 import { InputForm } from "./components/InputForm";
 import { NextBestTest } from "./components/NextBestTest";
@@ -157,7 +157,6 @@ export default function App() {
       <Sidebar onExport={exportSummary} onTour={online ? tour : undefined} onLanding={navigateToLanding} />
       <div className="topbar" ref={topbar}>
         <Header onExport={exportSummary} onNavigateLanding={navigateToLanding} />
-        <DisclaimerBanner />
       </div>
       {(error || tourError) && (
         <div className="error-banner" role="alert">
