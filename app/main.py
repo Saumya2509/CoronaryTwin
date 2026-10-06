@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import threading
 import time
@@ -61,9 +62,14 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
+# Allowed web origins: settings.yaml, plus CORONARYTWIN_CORS_ORIGINS (comma-separated, e.g. your Vercel URL) and
+# optionally CORONARYTWIN_CORS_REGEX (e.g. https://coronarytwin.*\.vercel\.app for preview deployments).
+_origins = list(config.settings()["api"]["cors_origins"]) + [
+    o.strip().rstrip("/") for o in os.environ.get("CORONARYTWIN_CORS_ORIGINS", "").split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=config.settings()["api"]["cors_origins"],
+    allow_origins=_origins,
+    allow_origin_regex=os.environ.get("CORONARYTWIN_CORS_REGEX") or None,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )

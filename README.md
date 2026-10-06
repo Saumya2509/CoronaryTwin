@@ -95,6 +95,8 @@ Then click **▶ Try demo**, upload a patient CSV (50 samples in [csv/](csv/)), 
 in [samples/reports/](samples/reports/). The trained models are committed, so no training is needed.
 Open `/?tour=1#dashboard` for a guided tour.
 
+**Deploy:** API on Hugging Face Spaces + website on Vercel, both free. Step by step: [docs/DEPLOY.md](docs/DEPLOY.md).
+
 ## How it works
 
 ```
@@ -140,7 +142,7 @@ tests/        API, model, leakage and feature tests
 ## Documentation
 
 - [Model card](docs/MODEL_CARD.md) · [Experiments](docs/experiments.md) · [Explainability report](docs/explainability_report.md) · [Data report](docs/data_report.md)
-- [Documentation PDF](docs/CoronaryTwin_documentation.pdf) · [Extending the project](docs/EXTENDING.md) · [3D assets](docs/ASSETS.md)
+- [Documentation PDF](docs/CoronaryTwin_documentation.pdf) · [Deploy](docs/DEPLOY.md) · [Extending the project](docs/EXTENDING.md) · [3D assets](docs/ASSETS.md)
 - API reference: run the app and open `/docs`.
 
 ## Limitations
