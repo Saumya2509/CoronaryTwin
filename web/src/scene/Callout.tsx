@@ -128,7 +128,10 @@ function layout(items: { spec: VesselSpec; r: TargetResult; a: ScreenAnchor }[],
     const mine = items
       .filter(({ spec, a }) => {
         const dx = a.x - snap.cx;
-        const s = Math.abs(dx) < snap.r * 0.2 ? spec.callout?.side ?? "right" : dx < 0 ? "left" : "right";
+        let s: "left" | "right" = dx < 0 ? "left" : "right";
+        if (Math.abs(dx) < snap.r * 0.35 && spec.callout?.side) {
+          s = spec.callout.side;
+        }
         return s === side;
       })
       .sort((p, q) => p.a.y - q.a.y);
@@ -148,6 +151,17 @@ function layout(items: { spec: VesselSpec; r: TargetResult; a: ScreenAnchor }[],
           const hit = taken.find((t) => overlaps(box, t));
           if (!hit) break;
           box.y = hit.y - h - 8;
+        }
+      }
+      // Guarantee vertical separation from any previously placed card on the same side
+      const sameSide = placed.filter((p) => p.side === side);
+      for (const prev of sameSide) {
+        if (overlaps(box, prev.box, 6)) {
+          if (box.y >= prev.box.y) {
+            box.y = prev.box.y + prev.box.h + 8;
+          } else {
+            box.y = prev.box.y - h - 8;
+          }
         }
       }
       box.y = Math.max(8, Math.min(box.y, snap.h - h - 8));
@@ -179,7 +193,7 @@ export function CalloutLayer() {
   });
 
   const mini = snap.w < 560;
-  const cardW = mini ? 70 : 172;
+  const cardW = mini ? 65 : 152;
   const items = anatomy.vessels
     .map((spec) => {
       const r = cohort ? cohortResult(cohort.summary, spec.id) : result?.vessels[spec.id] ?? null;

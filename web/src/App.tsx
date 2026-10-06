@@ -164,6 +164,9 @@ export default function App() {
         </div>
       )}
 
+      {drawerOpen && (
+        <div className="drawer-backdrop" onClick={closeDrawer} aria-hidden="true" />
+      )}
       <aside
         id="patient-drawer"
         className={`drawer ${drawerOpen ? "is-open" : ""}`}
