@@ -52,7 +52,10 @@ async def lifespan(_: FastAPI):
     else:
         path = db.init()
     log.info("database: %s", path or "disabled")
-    threading.Thread(target=extract.ocr_engine, daemon=True).start()   # load OCR models in the background
+    # Load the OCR models in the background so the first report reads fast. Small hosts (e.g. Render's free 512 MB)
+    # set CORONARYTWIN_OCR_WARMUP=0 to load them only when a report is actually read.
+    if os.environ.get("CORONARYTWIN_OCR_WARMUP", "1") != "0":
+        threading.Thread(target=extract.ocr_engine, daemon=True).start()
     yield
 
 

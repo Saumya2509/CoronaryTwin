@@ -1,0 +1,26 @@
+# Render Blueprint: the CoronaryTwin API on Render's free plan (docs/DEPLOY.md).
+# Render -> New -> Blueprint -> pick this repository. The website is deployed separately on Vercel.
+services:
+  - type: web
+    name: coronarytwin-api
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Your Vercel URL(s), comma-separated, no trailing slash. Render asks for it when you create the Blueprint.
+      - key: CORONARYTWIN_CORS_ORIGINS
+        sync: false
+      # The free plan has 512 MB: photo/scan reading (OCR) needs ~600 MB at its peak, so it is off here.
+      # PDFs with text and text files are still read. Remove these two on a plan with 1 GB or more.
+      - key: CORONARYTWIN_OCR
+        value: "off"
+      - key: CORONARYTWIN_OCR_WARMUP
+        value: "0"
+      - key: CORONARYTWIN_DB
+        value: /tmp/coronarytwin.db
+      - key: OMP_NUM_THREADS
+        value: "1"

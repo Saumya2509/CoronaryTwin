@@ -60,18 +60,48 @@ _ocr = None
 _ocr_lock = threading.Lock()
 
 
+def ocr_disabled() -> bool:
+    """CORONARYTWIN_OCR=off turns photo/scan reading off (small hosts: OCR needs ~600 MB at its peak)."""
+    return os.environ.get("CORONARYTWIN_OCR", "").strip().lower() in {"off", "0", "false", "no"}
+
+
 def ocr_engine():
-    """Lazily loaded local OCR engine (bundled ONNX models, no network). None if not installed."""
+    """Lazily loaded local OCR engine (bundled ONNX models, no network). None if not installed or turned off."""
     global _ocr
+    if ocr_disabled():
+        return None
     with _ocr_lock:
         if _ocr is None:
             try:
                 from rapidocr import RapidOCR
-                _ocr = RapidOCR(params={"Global.log_level": "warning"})
+                # CORONARYTWIN_OCR_THREADS=1 keeps memory low on small hosts (default: all cores)
+                threads = int(os.environ.get("CORONARYTWIN_OCR_THREADS", "-1"))
+                _ocr = RapidOCR(params={"Global.log_level": "warning",
+                                        "EngineConfig.onnxruntime.intra_op_num_threads": threads,
+                                        "EngineConfig.onnxruntime.inter_op_num_threads": threads if threads > 0 else -1})
             except Exception as e:  # missing package or model
                 log.warning("OCR unavailable: %s", e)
                 _ocr = False
         return _ocr or None
+
+
+MAX_OCR_SIDE = 2000   # px; report text stays legible, and a 12 MP phone photo no longer needs ~1 GB to read
+
+
+def _shrink(image_bytes: bytes) -> bytes:
+    """Downscale large photos before OCR (memory and time grow with pixel count)."""
+    try:
+        from PIL import Image
+        im = Image.open(io.BytesIO(image_bytes))
+        if max(im.size) <= MAX_OCR_SIDE:
+            return image_bytes
+        im = im.convert("RGB")
+        im.thumbnail((MAX_OCR_SIDE, MAX_OCR_SIDE), Image.LANCZOS)
+        out = io.BytesIO()
+        im.save(out, format="PNG")
+        return out.getvalue()
+    except Exception:
+        return image_bytes
 
 
 def ocr_lines(image_bytes: bytes) -> list[str]:
@@ -79,8 +109,10 @@ def ocr_lines(image_bytes: bytes) -> list[str]:
     line, left to right, joined by wide gaps so table columns stay separable."""
     eng = ocr_engine()
     if eng is None:
+        if ocr_disabled():
+            raise RuntimeError("reading photos and scans is turned off on this server; PDFs with text and text files still work")
         raise RuntimeError("Local OCR is not installed (pip install rapidocr onnxruntime).")
-    res = eng(image_bytes)
+    res = eng(_shrink(image_bytes))
     if res is None or res.boxes is None or res.txts is None:
         return []
     items = []
@@ -550,11 +582,13 @@ def extract(files: list[tuple[str, bytes]], use_claude: bool = False,
 
 
 def capabilities() -> dict:
-    try:
-        import rapidocr  # noqa: F401
-        ocr = True
-    except ImportError:
-        ocr = False
+    ocr = False
+    if not ocr_disabled():
+        try:
+            import rapidocr  # noqa: F401
+            ocr = True
+        except ImportError:
+            pass
     try:
         import pypdf  # noqa: F401
         pdf = True

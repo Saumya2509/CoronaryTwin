@@ -95,7 +95,7 @@ Then click **▶ Try demo**, upload a patient CSV (50 samples in [csv/](csv/)), 
 in [samples/reports/](samples/reports/). The trained models are committed, so no training is needed.
 Open `/?tour=1#dashboard` for a guided tour.
 
-**Deploy:** API on Hugging Face Spaces + website on Vercel, both free. Step by step: [docs/DEPLOY.md](docs/DEPLOY.md).
+**Deploy:** API on Render + website on Vercel, both free with no card. Step by step: [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## How it works
 

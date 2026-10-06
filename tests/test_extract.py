@@ -130,3 +130,11 @@ def test_sample_reports_end_to_end():
               "q_wave": 0, "ef_tte": 45, "region_rwma": 2, "vhd": 1, "hdl": 34.8, "diabetes": 1, "current_smoker": 0}
     assert {k: f[k]["value"] for k in expect} == expect
     assert len(f) >= 38
+
+
+def test_ocr_can_be_turned_off_for_small_hosts(monkeypatch):
+    monkeypatch.setenv("CORONARYTWIN_OCR", "off")
+    assert extract.capabilities()["ocr"] is False
+    out = extract.extract([("photo.png", b"\x89PNG\r\n\x1a\n" + b"0" * 200), ("note.txt", b"LDL 130 mg/dL")])
+    assert [f["name"] for f in out["findings"]] == ["ldl"]                       # text still read
+    assert any("turned off" in w for w in out["warnings"])                       # photo explained, not crashed

@@ -79,7 +79,7 @@ export function ReportDialog({ spec, onClose }: { spec: FeaturesResponse; onClos
       <h2 id="report-title">Read reports</h2>
       <p className="small muted">
         Lab results, ECG and echo reports or a referral letter, as PDF, photo, scan or text. Values are read on this server
-        {caps && !caps.ocr ? " (OCR is not installed, so only PDFs with text and text files can be read)" : " with on-device OCR"}, and
+        {caps && !caps.ocr ? " (reading photos and scans is off on this server, so only PDFs with text and text files can be read)" : " with on-device OCR"}, and
         you confirm each one before it enters the record. Files are not stored.
       </p>
 
