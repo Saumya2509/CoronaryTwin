@@ -66,6 +66,8 @@ interface RiskStore {
   sidebarOpen: boolean;
   /** The "Read reports" dialog, so the sidebar can open it too. */
   reportsOpen: boolean;
+  /** The CSV samples dialog (ten sample patients for judges). */
+  samplesOpen: boolean;
   /** Demo mode (md/final.md part 2): the sample patients and which one is shown. */
   demo: { sets: DemoPatientSet[]; active: number } | null;
   /** Short status message shown as a toast (e.g. a demo file that failed to load). */
@@ -96,6 +98,7 @@ interface RiskStore {
   setSidebarCollapsed: (v: boolean) => void;
   setSidebarOpen: (v: boolean) => void;
   setReportsOpen: (v: boolean) => void;
+  setSamplesOpen: (v: boolean) => void;
   setDemo: (d: RiskStore["demo"]) => void;
   setToast: (t: string | null) => void;
   /** Back to "no patient loaded". */
@@ -111,6 +114,7 @@ export interface DemoPatientSet {
   description: string;
   record: PatientRecord;
   patientId: string;
+  csv: string;
 }
 
 const SIDEBAR_KEY = "coronarytwin.sidebar";
@@ -162,6 +166,7 @@ export const useRisk = create<RiskStore>((set) => ({
   sidebarCollapsed: initialCollapsed(),
   sidebarOpen: false,
   reportsOpen: false,
+  samplesOpen: false,
   demo: null,
   toast: null,
 
@@ -217,6 +222,7 @@ export const useRisk = create<RiskStore>((set) => ({
   },
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
   setReportsOpen: (reportsOpen) => set({ reportsOpen }),
+  setSamplesOpen: (samplesOpen) => set({ samplesOpen }),
   setDemo: (demo) => set({ demo }),
   setToast: (toast) => set({ toast }),
   clearPatient: () =>

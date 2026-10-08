@@ -7,6 +7,7 @@ import { PatientView } from "./components/PatientView";
 import { PrintSummary } from "./components/PrintSummary";
 import { startGuidedTour } from "./components/PresentMode";
 import { Alerts, KpiStrip } from "./components/RiskCards";
+import { SamplesDialog } from "./components/SamplesDialog";
 import { ShapPanel } from "./components/ShapPanel";
 import { Sidebar } from "./components/Sidebar";
 import { Tabs } from "./components/Tabs";
@@ -67,6 +68,8 @@ export default function App() {
   };
   const lite = useRisk((s) => s.view.lite);
   const sbCollapsed = useRisk((s) => s.sidebarCollapsed);
+  const samplesOpen = useRisk((s) => s.samplesOpen);
+  const setSamplesOpen = useRisk((s) => s.setSamplesOpen);
   const audience = useRisk((s) => s.audience);
   const [tourError, setTourError] = useState<string | null>(null);
   const topbar = useRef<HTMLDivElement>(null);
@@ -218,6 +221,7 @@ export default function App() {
       </footer>
       <FirstUseModal />
       <Toast />
+      {samplesOpen && <SamplesDialog onClose={() => setSamplesOpen(false)} />}
       <PrintSummary snapshot={snapshot} />
     </div>
   );

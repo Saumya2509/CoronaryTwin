@@ -276,7 +276,7 @@ DEMO_MANIFEST = config.ROOT / "csv" / "demo.json"
 
 @app.get("/demo-set")
 def demo_set() -> dict:
-    """The sample patients behind "Try Demo": csv/demo.json plus each file's CSV text. A missing or
+    """The sample patients behind the CSV button: csv/demo.json plus each file's CSV text. A missing or
     unreadable file is reported in `errors` and skipped, so the demo still loads the others."""
     if not DEMO_MANIFEST.exists():
         raise HTTPException(404, "Demo manifest csv/demo.json not found.")

@@ -23,7 +23,7 @@
 
 CoronaryTwin predicts overall coronary artery disease (CAD) and stenosis in the LAD, LCX and RCA from 51 routine clinical
 measurements, then shows each artery as its own 3D object, colored by its calibrated probability, with uncertainty, SHAP
-explanations and what-if sensitivity analysis. Try it in one click with **▶ Try demo** (five sample patients), or drop in
+explanations and what-if sensitivity analysis. Try it with the **CSV** button (ten sample patients to choose from), or drop in
 lab, ECG and echo reports and let it read the values for you.
 
 ## Results at a glance
@@ -91,7 +91,7 @@ python tasks.py serve     # API on http://127.0.0.1:8000
 python tasks.py web       # app on http://localhost:5173
 ```
 
-Then click **▶ Try demo**, upload a patient CSV (50 samples in [csv/](csv/)), or **Read reports** with the sample reports
+Then click **CSV** and pick one of the ten sample patients, upload your own patient CSV (50 samples in [csv/](csv/)), or **Read reports** with the sample reports
 in [samples/reports/](samples/reports/). The trained models are committed, so no training is needed.
 Open `/?tour=1#dashboard` for a guided tour.
 

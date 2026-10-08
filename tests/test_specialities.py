@@ -163,13 +163,13 @@ def test_submodel_range_brackets_estimate(client, high):
         assert 0 <= lo <= r["prob"] <= hi <= 1
 
 
-# ---------------------------------------------------------------- Try Demo (md/final.md part 2)
+# ---------------------------------------------------------------- CSV samples (csv/demo.json)
 
-def test_demo_set_serves_five_complete_samples(client):
+def test_demo_set_serves_ten_complete_samples(client):
     body = client.get("/demo-set").json()
-    assert body["errors"] == [] and len(body["demo"]) == 5
-    labels = [d["label"] for d in body["demo"]]
-    assert labels == ["Low risk", "Moderate risk", "High risk", "Edge case", "Mixed"]
+    assert body["errors"] == [] and len(body["demo"]) == 10
+    assert len({d["file"] for d in body["demo"]}) == 10                     # ten different files
+    assert body["demo"][0]["label"].startswith("Low") and body["demo"][-1]["label"].startswith("High")
     for d in body["demo"]:
         header, row = d["csv"].strip().splitlines()[:2]
         assert len(header.split(",")) == len(row.split(",")) == 52

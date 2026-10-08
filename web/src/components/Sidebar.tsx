@@ -3,7 +3,7 @@
 // to a 72px icon rail (tooltips on hover/focus), and becomes a slide-over drawer below 768px.
 // The active item follows the scroll position (and the selected tab inside Analysis).
 import { useEffect, useState, type ReactNode } from "react";
-import { exitDemo, loadDemo, showDemo } from "../demo";
+import { exitDemo, showDemo } from "../demo";
 import { prefersReducedMotionNow, useRisk, type Tab } from "../store/risk";
 import { useTheme } from "../theme";
 
@@ -29,6 +29,7 @@ const ICONS = {
   sun: I(<><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></>),
   moon: I(<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" />),
   play: I(<path d="M7 4v16l13-8L7 4Z" />),
+  csv: I(<><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" /><path d="M14 3v5h5" /><path d="M8 13h8M8 17h8M11 11v8" /></>),
   collapse: I(<><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M16 10l-2 2 2 2" /></>),
   expand: I(<><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M14 10l2 2-2 2" /></>),
   close: I(<path d="M18 6 6 18M6 6l12 12" />),
@@ -100,6 +101,7 @@ export function Sidebar({ onExport, onTour, onLanding }: { onExport: () => void;
   const nFeatures = useRisk((s) => s.spec?.features.length ?? 0);
   const hasResult = useRisk((s) => s.result !== null);
   const demo = useRisk((s) => s.demo);
+  const setSamplesOpen = useRisk((s) => s.setSamplesOpen);
   const [theme, setTheme] = useTheme();
   const section = useScrollSpy();
   const recorded = Object.values(inputs).filter((v) => v !== null && v !== undefined).length;
@@ -196,18 +198,19 @@ export function Sidebar({ onExport, onTour, onLanding }: { onExport: () => void;
           </ul>
           {demo ? (
             <div className="sb-demo" role="status">
-              <span className="sb-demo-dot" aria-hidden="true" data-tip={`Demo mode · ${demo.sets[demo.active].label}`} />
+              <span className="sb-demo-dot" aria-hidden="true" data-tip={`Sample ${demo.active + 1} · ${demo.sets[demo.active].label}`} />
               <span className="sb-demo-text">
-                <b>Demo mode</b>
+                <b>Sample patient</b>
                 <span>Sample {demo.active + 1} of {demo.sets.length} · {demo.sets[demo.active].label}</span>
               </span>
               <span className="sb-demo-actions">
+                <button type="button" className="linkbtn small" onClick={() => setSamplesOpen(true)}>Change</button>
                 <button type="button" className="linkbtn small" onClick={() => showDemo((demo.active + 1) % demo.sets.length)}>Next</button>
                 <button type="button" className="linkbtn small" onClick={exitDemo}>Exit</button>
               </span>
             </div>
           ) : (
-            <ul>{row("demo", "Try demo", ICONS.play, () => { void loadDemo(); setOpen(false); })}</ul>
+            <ul>{row("demo", "CSV samples", ICONS.csv, () => { setSamplesOpen(true); setOpen(false); })}</ul>
           )}
         </div>
       </nav>

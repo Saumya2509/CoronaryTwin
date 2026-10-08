@@ -1,5 +1,5 @@
-// md/final.md acceptance checklist: sidebar (collapse, active item, phone drawer), Try Demo (5 samples,
-// switcher, exit, a failed file never breaks it) and the generated PDF report. SHOTS=<dir> saves screenshots.
+// Sidebar (collapse, active item, phone drawer), the CSV button (ten sample patients to choose from,
+// a failed file never breaks it) and the generated PDF report. SHOTS=<dir> saves screenshots.
 import { expect, test, type Page } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -16,30 +16,46 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("sidebar, Try Demo and the PDF report", async ({ page }) => {
+// The page applies a CSS zoom (html { zoom }), so on-screen sizes are the CSS sizes times that factor.
+const zoomOf = (page: Page) => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).zoom || "1") || 1);
+const widthIs = async (page: Page, css: number) => {
+  const z = await zoomOf(page);
+  await expect(async () => expect((await page.locator("nav.sidebar").boundingBox())!.width).toBeCloseTo(css * z, 0)).toPass();
+};
+
+const openSample = async (page: Page, n: number) => {   // n is 1-based, as shown in the dialog
+  await page.locator(".masthead").getByRole("button", { name: "CSV", exact: true }).click();
+  const dialog = page.locator(".samples-modal");
+  await dialog.locator(".samples-list li").first().waitFor({ timeout: 30_000 });
+  await dialog.getByRole("button", { name: new RegExp(`^Open sample ${n}:`) }).click();
+};
+
+test("sidebar, CSV samples and the PDF report", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/?page=dashboard&drawer=0#dashboard");
   const sb = page.locator("nav.sidebar");
   await expect(sb).toBeVisible();
-  expect((await sb.boundingBox())!.width).toBeCloseTo(240, 0);
+  await widthIs(page, 240);
 
-  // Try Demo: one click fills the dashboard; the switcher and exit work.
-  await page.getByRole("button", { name: /Try demo/ }).first().click();
+  // CSV: the dialog lists ten different sample files; picking one fills the dashboard.
+  await page.locator(".masthead").getByRole("button", { name: "CSV", exact: true }).click();
+  await expect(page.locator(".samples-modal .samples-list li")).toHaveCount(10, { timeout: 30_000 });
+  await shot(page, "f0_csv_dialog");
+  await page.locator(".samples-modal").getByRole("button", { name: /^Open sample 1:/ }).click();
   await expect(page.locator(".callout").first()).toBeVisible({ timeout: 60_000 });
-  await expect(page.locator(".demo-switch")).toContainText("Demo");
-  await expect(page.locator("#demo-select option")).toHaveCount(5);
-  await expect(page.locator(".sb-demo")).toContainText("Sample 1 of 5");
+  await expect(page.locator(".demo-switch")).toContainText("Sample 1/10");
+  await expect(page.locator(".sb-demo")).toContainText("Sample 1 of 10");
   await shot(page, "f1_demo_sidebar");
   const first = await page.locator(".kpi-overall .kpi-num").innerText();
-  await page.locator("#demo-select").selectOption("2");
-  await expect(page.locator(".sb-demo")).toContainText("Sample 3 of 5");
+  await openSample(page, 10);
+  await expect(page.locator(".sb-demo")).toContainText("Sample 10 of 10");
   await expect(async () => expect(await page.locator(".kpi-overall .kpi-num").innerText()).not.toBe(first)).toPass({ timeout: 15_000 });
 
-  // The sidebar's Patient record item opens and closes the record drawer.
+  // The sidebar's Patient record item opens the record drawer; it overlays the page and closes on an outside click.
   await sb.getByRole("button", { name: /Patient record/ }).click();
   await expect(page.locator("#patient-drawer")).toBeVisible();
-  await sb.getByRole("button", { name: /Patient record/ }).click();
+  await page.locator(".drawer-backdrop").click({ position: { x: 5, y: 300 } });
   await expect(page.locator("#patient-drawer")).toBeHidden();
 
   // Active nav item follows the selected analysis tab.
@@ -60,24 +76,24 @@ test("sidebar, Try Demo and the PDF report", async ({ page }) => {
 
   // Collapse to the icon rail, with tooltips; the choice is remembered.
   await sb.getByRole("button", { name: "Collapse sidebar" }).click();
-  await expect(async () => expect((await sb.boundingBox())!.width).toBeCloseTo(72, 0)).toPass();
+  await widthIs(page, 72);
   await sb.getByRole("button", { name: "Model trust" }).hover();
   await shot(page, "f2_collapsed");
   await page.reload();
-  await expect(async () => expect((await page.locator("nav.sidebar").boundingBox())!.width).toBeCloseTo(72, 0)).toPass();
+  await widthIs(page, 72);
   await page.locator("nav.sidebar").getByRole("button", { name: "Expand sidebar" }).click();
 
-  // Exit demo returns to an empty report.
-  await page.getByRole("button", { name: /Try demo/ }).first().click();
+  // Exit returns to an empty report.
+  await openSample(page, 3);
   await expect(page.locator(".demo-switch")).toBeVisible({ timeout: 30_000 });
-  await page.getByRole("button", { name: "Exit demo" }).click();
+  await page.locator(".demo-switch").getByRole("button", { name: "Exit" }).click();
   await expect(page.locator(".demo-switch")).toHaveCount(0);
   await expect(page.locator(".hero-empty")).toBeVisible();
 
   expect(errors).toEqual([]);
 });
 
-test("a demo file that fails to load is skipped, not fatal", async ({ page }) => {
+test("a sample file that fails to load is skipped, not fatal", async ({ page }) => {
   await page.route("**/demo-set", async (route) => {
     const res = await route.fetch();
     const body = await res.json();
@@ -86,9 +102,10 @@ test("a demo file that fails to load is skipped, not fatal", async ({ page }) =>
     await route.fulfill({ response: res, json: body });
   });
   await page.goto("/?page=dashboard&drawer=0#dashboard");
-  await page.getByRole("button", { name: /Try demo/ }).first().click();
+  await page.locator(".masthead").getByRole("button", { name: "CSV", exact: true }).click();
   await expect(page.locator(".toast")).toContainText("Skipped", { timeout: 30_000 });
-  await expect(page.locator("#demo-select option")).toHaveCount(4);
+  await expect(page.locator(".samples-modal .samples-list li")).toHaveCount(9);
+  await page.locator(".samples-modal").getByRole("button", { name: /^Open sample 1:/ }).click();
   await expect(page.locator(".callout").first()).toBeVisible({ timeout: 60_000 });
 });
 

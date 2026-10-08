@@ -1,10 +1,15 @@
 {
-  "note": "The five sample patients loaded by Try Demo (md/final.md). Invented patients, not dataset rows. Chosen for complete values and a spread of outcomes; re-check the labels if the models are retrained.",
+  "note": "The ten sample patients behind the CSV button: invented patients, not dataset rows, ordered from low to high risk. Labels were checked against the current models; re-check them if the models are retrained.",
   "demo": [
     {"file": "01_healthy_young_woman.csv", "label": "Low risk", "description": "34-year-old woman, no symptoms, normal tests."},
-    {"file": "17_high_ldl_triglycerides.csv", "label": "Moderate risk", "description": "49-year-old man with high LDL and triglycerides: every artery uncertain, useful what-if sliders."},
-    {"file": "14_reduced_ef_wall_motion.csv", "label": "High risk", "description": "68-year-old man, EF 30% with wall-motion abnormality in three regions."},
-    {"file": "12_left_bundle_branch_block.csv", "label": "Edge case", "description": "70-year-old man with left bundle branch block: all four estimates stay uncertain."},
-    {"file": "19_chronic_kidney_disease.csv", "label": "Mixed", "description": "67-year-old man with chronic kidney disease: CAD likely, arteries differ."}
+    {"file": "07_atypical_pain_young_woman.csv", "label": "Low risk · atypical pain", "description": "39-year-old woman with atypical chest pain and a normal ECG."},
+    {"file": "30_everything_normal_45_man.csv", "label": "Low risk · all normal", "description": "45-year-old man with every value in the normal range."},
+    {"file": "17_high_ldl_triglycerides.csv", "label": "Moderate · high cholesterol", "description": "49-year-old man with high LDL and triglycerides: every artery uncertain, useful what-if sliders."},
+    {"file": "29_typical_pain_normal_tests.csv", "label": "Moderate · typical pain", "description": "52-year-old woman with typical chest pain but normal tests: the estimate stays uncertain."},
+    {"file": "12_left_bundle_branch_block.csv", "label": "Edge case · LBBB", "description": "70-year-old man with left bundle branch block: all four estimates stay uncertain."},
+    {"file": "19_chronic_kidney_disease.csv", "label": "Mixed · kidney disease", "description": "67-year-old man with chronic kidney disease: CAD likely, arteries differ."},
+    {"file": "05_diabetic_hypertensive_woman.csv", "label": "High · diabetes and blood pressure", "description": "66-year-old woman with diabetes and hypertension: CAD likely, single arteries uncertain."},
+    {"file": "09_st_elevation_q_wave.csv", "label": "High · ECG changes", "description": "63-year-old man with ST elevation and Q waves on the ECG."},
+    {"file": "14_reduced_ef_wall_motion.csv", "label": "High risk · weak heart muscle", "description": "68-year-old man, EF 30% with wall-motion abnormality in three regions."}
   ]
 }

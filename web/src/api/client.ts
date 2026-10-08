@@ -96,6 +96,6 @@ export function extractReports(files: File[], useClaude: boolean, signal?: Abort
   return call<ExtractResponse>("/extract", { method: "POST", body, signal });
 }
 
-/** GET /demo-set: the sample patients behind "Try Demo" (csv/demo.json). */
+/** GET /demo-set: the sample patients behind the CSV button (csv/demo.json). */
 export const getDemoSet = () =>
   call<{ demo: { file: string; label: string; description: string; csv: string }[]; errors: string[]; disclaimer: string }>("/demo-set");

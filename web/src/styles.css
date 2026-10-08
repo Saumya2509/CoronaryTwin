@@ -1287,3 +1287,24 @@ button.kpi:hover:not(:disabled) { border-color: var(--line-strong); border-left-
   max-width: min(640px, calc(100vw - 32px)); padding: 10px 10px 10px 16px; border-radius: var(--radius-sm); background: var(--text); color: var(--bg); font-size: 14px; box-shadow: var(--shadow); }
 .toast .icon-btn { width: 32px; height: 32px; color: var(--bg); background: transparent; border-color: transparent; }
 @media print { html { zoom: 1; } .sidebar, .toast { display: none !important; } .app.has-sidebar { padding-left: 0; } }
+
+/* ---------------------------------------------------------------- CSV samples dialog */
+.samples-modal { max-width: 760px; }
+.samples-modal .batch-actions .btn { width: auto; }
+.modal ol.samples-list { list-style: none; padding: 0; margin: var(--s-4) 0; display: grid; gap: 8px; max-height: min(58vh, 620px); overflow: auto; }
+.samples-list li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; gap: var(--s-3); align-items: center; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--panel-2); }
+.samples-list li.is-active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.samples-num { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; background: var(--panel); font-weight: 700; font-size: 13px; color: var(--text-2); }
+.samples-text { display: grid; gap: 2px; min-width: 0; }
+.samples-band { justify-self: start; font: 700 12px var(--font-ui); padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.samples-band.band-low { color: var(--unlikely); } .samples-band.band-moderate { color: var(--uncertain); }
+.samples-band.band-high { color: var(--likely); } .samples-band.band-other { color: var(--text-2); }
+.samples-desc { font-size: 14px; color: var(--text); }
+.samples-file { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.samples-actions { display: flex; gap: 6px; }
+.demo-label { font-size: 13px; color: var(--text); max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 600px) {
+  .samples-list li { grid-template-columns: 28px minmax(0, 1fr); }
+  .samples-actions { grid-column: 2; }
+}

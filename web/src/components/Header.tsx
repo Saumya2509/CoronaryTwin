@@ -1,4 +1,4 @@
-import { exitDemo, loadDemo, showDemo } from "../demo";
+import { exitDemo } from "../demo";
 import { useRisk, type Audience } from "../store/risk";
 import { SidebarButton } from "./Sidebar";
 
@@ -26,6 +26,7 @@ export function Header({ onExport, onNavigateLanding }: { onExport: () => void; 
   const drawerOpen = useRisk((s) => s.drawerOpen);
   const setDrawer = useRisk((s) => s.setDrawer);
   const demo = useRisk((s) => s.demo);
+  const setSamplesOpen = useRisk((s) => s.setSamplesOpen);
   const online = useRisk((s) => s.spec !== null);
   const recorded = Object.values(inputs).filter((v) => v !== null && v !== undefined).length;
 
@@ -77,20 +78,16 @@ export function Header({ onExport, onNavigateLanding }: { onExport: () => void; 
             </button>
           ))}
         </div>
-        {demo ? (
-          <div className="demo-switch" role="group" aria-label="Demo mode">
-            <span className="demo-badge">Demo</span>
-            <label className="sr-only" htmlFor="demo-select">Sample patient</label>
-            <select id="demo-select" value={demo.active} onChange={(e) => showDemo(Number(e.target.value))}>
-              {demo.sets.map((d, i) => <option key={d.file} value={i}>Sample {i + 1}: {d.label}</option>)}
-            </select>
-            <button type="button" className="btn small ghost" onClick={exitDemo}>Exit demo</button>
+        <button type="button" className="btn demo-btn" onClick={() => setSamplesOpen(true)} disabled={!online}
+          title="Choose one of 10 sample patient CSV files">
+          CSV
+        </button>
+        {demo && (
+          <div className="demo-switch" role="group" aria-label="Open sample">
+            <span className="demo-badge">Sample {demo.active + 1}/{demo.sets.length}</span>
+            <span className="demo-label">{demo.sets[demo.active].label}</span>
+            <button type="button" className="btn small ghost" onClick={exitDemo}>Exit</button>
           </div>
-        ) : (
-          <button type="button" className="btn demo-btn" onClick={() => void loadDemo()} disabled={!online}
-            title="Load 5 sample patients: low, moderate, high risk, an edge case and a mixed case">
-            ▶ Try demo
-          </button>
         )}
         <button type="button" className="btn primary" onClick={onExport} disabled={!hasResult}>Export PDF</button>
       </div>

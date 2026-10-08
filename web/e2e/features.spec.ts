@@ -23,7 +23,7 @@ test("read reports, compare with guidelines, compare visits", async ({ page }) =
   await page.goto("/?page=dashboard#dashboard");
 
   // 1. Multimodal input: four reports -> proposed values with their source lines -> confirm.
-  await page.locator("nav.sidebar").getByRole("button", { name: "Read reports" }).click();
+  await page.locator(".pr-actions").getByRole("button", { name: "Read reports" }).click();   // the record drawer is open
   const dialog = page.locator(".report-modal");
   await dialog.locator("input[type=file]").setInputFiles(files);
   await dialog.getByRole("button", { name: /Read 4 files/ }).click();

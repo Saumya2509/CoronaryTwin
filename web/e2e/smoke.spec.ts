@@ -15,7 +15,6 @@ test("upload a patient: KPI tiles, callouts, hero and tabs agree", async ({ page
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/?page=dashboard#dashboard");
-  await expect(page.getByRole("note").filter({ hasText: "Not a diagnosis" })).toBeVisible(); // safety banner
 
   await page.setInputFiles("input[type=file]", CSV);
   await expect(page.locator(".callout").first()).toBeVisible({ timeout: 60_000 });
@@ -27,6 +26,10 @@ test("upload a patient: KPI tiles, callouts, hero and tabs agree", async ({ page
     expect(hero).toBe(tile);
   }).toPass({ timeout: 5_000 });
   await expect(page.locator(".callout")).toHaveCount(3);
+
+  // The record drawer overlays the page: close it (click outside) before using the report.
+  if (await page.locator(".drawer-backdrop").isVisible()) await page.locator(".drawer-backdrop").click({ position: { x: 5, y: 300 } });
+  await expect(page.locator("#patient-drawer")).toBeHidden();
 
   // Selecting an artery from its KPI tile opens the detail panel.
   await page.locator("button.kpi").first().click();

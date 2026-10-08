@@ -40,7 +40,7 @@ the API.
 On Render, open the `coronarytwin-api` service → **Environment** → edit **`CORONARYTWIN_CORS_ORIGINS`** and set it to your
 Vercel URL, e.g. `https://coronarytwin.vercel.app` (comma-separate several; no trailing `/`) → **Save, rebuild and deploy**.
 
-Open the Vercel URL: the landing page shows the live patient, and **▶ Try demo** loads the samples.
+Open the Vercel URL: the landing page shows the live patient, and the **CSV** button lists the ten sample patients.
 
 ## Updating
 
